@@ -81,7 +81,7 @@
 								<div id="tab1" class="tab-pane fade in active">
 									<div class="row">
 										<div class="col-md-12">
-											<p>{{ $product->configuation }}</p>
+											<p>{{ $product->configuration }}</p>
 										</div>
 									</div>
 								</div>
