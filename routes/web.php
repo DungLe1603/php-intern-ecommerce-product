@@ -18,11 +18,12 @@ Route::get('/', function () {
 
 // User
 Route::get('products', 'ShopController@index');
+Route::get('products/{product}', 'ShopController@show');
 
 //Cart
 Route::get('cart', 'ShopController@cart');
-Route::get('add-to-cart/{id}', 'ShopController@addToCart');
-Route::get('remove-from-cart/{id}', 'ShopController@removeFromCart');
+Route::get('add-to-cart/{product}', 'ShopController@addToCart');
+Route::get('remove-from-cart/{product}', 'ShopController@removeFromCart');
 //Admin
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], function () {
     Route::get('/', 'LoginController@showLogin')->name('showLogin');
