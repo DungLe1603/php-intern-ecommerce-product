@@ -18,10 +18,10 @@ class CreateProductsTable extends Migration
             $table->string('product_name');
             $table->integer('quantity');
             $table->text('description');
-            $table->text('configuation');
+            $table->text('configuration');
             $table->string('images');
             $table->string('colors');
-            $table->decimal('price',10,1);
+            $table->decimal('price', 10, 1);
             $table->timestamps();
         });
     }

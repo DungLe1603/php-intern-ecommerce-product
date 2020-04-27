@@ -15,12 +15,12 @@ class UsersTableSeeder extends Seeder
             [
                 'name' => 'admin1',
                 'email' => 'admin1@gmail.com',
-                'password' => '123456',
+                'password' => bcrypt('123456'),
             ],
             [
                 'name' => 'admin2',
                 'email' => 'admin2@gmail.com',
-                'password' => '123456',
+                'password' => bcrypt('123456'),
             ]
         ];
 

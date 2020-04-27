@@ -23,7 +23,7 @@ class LoginController extends Controller
             return redirect()->back()->with('error', 'User Name invalid');
         }
         //Check password
-        if (!Hash::check($request->password, bcrypt($user->password))) {
+        if (!Hash::check($request->password, $user->password)) {
             return redirect()->back()->with('error', 'Password Invalid');
         }
 
