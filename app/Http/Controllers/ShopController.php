@@ -15,14 +15,17 @@ class ShopController extends Controller
         return view('user.products', compact('products'));
     }
 
+    public function show(Product $product)
+    {
+        return view('user.show', compact('product'));
+    }
+
     public function cart()
     {
     }
 
-    public function addToCart($id)
+    public function addToCart(Product $product)
     {
-        $product = Product::find($id);
-        
         \Cart::add(array(
             'id' => $product->id,
             'name' => $product->product_name,
@@ -35,9 +38,9 @@ class ShopController extends Controller
         return redirect()->back();
     }
 
-    public function removeFromCart($id)
+    public function removeFromCart(Product $product)
     {
-        \Cart::remove($id);
+        \Cart::remove($product->id);
         
         return redirect()->back();
     }
