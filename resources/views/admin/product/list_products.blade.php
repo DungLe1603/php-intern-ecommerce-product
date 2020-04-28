@@ -99,10 +99,13 @@
                     @endif
                     <div class="nav-link bg bg-gradient-light">
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+                        <button type="button" class="btn btn-success float-left" data-toggle="modal"
+                                data-target="#exampleModal">
                             Create New Product
                         </button>
-
+                        <div class="export">
+                            <a href="{{route('admin.exportProduct')}}" class="btn btn-secondary">Export List Product</a>
+                        </div>
                         <!-- Modal -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
                              aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Model\Product;
+use App\Exports\ProductsExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -38,5 +40,10 @@ class ProductController extends Controller
         Product::where('id', $id)->update($dataUp);
 
         return redirect()->route('admin.listAllProducts')->with('success', 'Update Success');
+    }
+
+    public function exportProduct()
+    {
+        return Excel::download(new ProductsExport(), 'ListProducts.xlsx');
     }
 }
