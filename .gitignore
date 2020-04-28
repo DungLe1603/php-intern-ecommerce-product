@@ -12,7 +12,4 @@ npm-debug.log
 yarn-error.log
 /dbdata
 .idea
- composer.json
-composer.lock
-config/app.php
 key.json
