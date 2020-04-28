@@ -61,7 +61,7 @@
 									</div>
 								</div>
 								<div class="product-body">
-									<h3 class="product-name"><a href="#">{{$product->product_name}}</a></h3>
+									<h3 class="product-name"><a href="{{url('products') . '/' . $product->id}}">{{$product->product_name}}</a></h3>
 									<h4 class="product-price">$ {{ $product->price}}</h4>
 									<div class="product-rating">
 										<i class="fa fa-star"></i>

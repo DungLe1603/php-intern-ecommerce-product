@@ -15,16 +15,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::group(['namespace' => 'User'], function () {
+    //Product
+    Route::get('products', 'ProductController@index');
+    Route::get('products/{product}', 'ProductController@show');
 
-// User
-Route::get('products', 'ShopController@index');
-Route::get('products/{product}', 'ShopController@show');
+    //Cart
+    Route::get('cart', 'CartController@show');
+    Route::get('add-to-cart/{product}', 'CartController@add');
+    Route::get('remove-from-cart/{product}', 'CartController@remove');
+    Route::get('update-cart', 'CartController@update');
 
-//Cart
-Route::get('cart', 'ShopController@showCart');
-Route::get('add-to-cart/{product}', 'ShopController@addToCart');
-Route::get('remove-from-cart/{product}', 'ShopController@removeFromCart');
-Route::get('update-cart', 'ShopController@updateCart');
+    // Order
+    Route::get('checkout', 'OrderController@create');
+    Route::post('order', 'OrderController@store');
+});
 
 //Admin
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], function () {
