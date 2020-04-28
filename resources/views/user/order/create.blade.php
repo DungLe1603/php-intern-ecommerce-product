@@ -38,15 +38,27 @@
                                 </div>
                                 <div class="form-group">
                                     <input class="input" type="text" name="fullname" placeholder="Full Name">
+                                    @error('fullname')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <input class="input" type="email" name="email" placeholder="Email">
+                                    @error('email')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <input class="input" type="text" name="address" placeholder="Address">
+                                    @error('address')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <input class="input" type="tel" name="phone" placeholder="Telephone">
+                                    @error('phone')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <!-- /Billing Details -->
