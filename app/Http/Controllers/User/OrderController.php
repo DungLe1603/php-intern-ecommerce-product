@@ -20,7 +20,12 @@ class OrderController extends Controller
 
     public function store(Request $request)
     {
-
+        $data = $request->validate([
+            'fullname' => 'required',
+            'email' => 'required',
+            'address' => 'required',
+            'phone' => 'required',
+        ]);
 
         return view('user.order.show');
     }

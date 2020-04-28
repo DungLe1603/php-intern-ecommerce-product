@@ -24,7 +24,7 @@ Route::group(['namespace' => 'User'], function () {
     Route::get('cart', 'CartController@show');
     Route::get('add-to-cart/{product}', 'CartController@add');
     Route::get('remove-from-cart/{product}', 'CartController@remove');
-    Route::get('update-cart', 'CartController@update');
+    Route::patch('update-cart', 'CartController@update');
 
     // Order
     Route::get('checkout', 'OrderController@create');
