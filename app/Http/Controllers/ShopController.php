@@ -39,7 +39,8 @@ class ShopController extends Controller
         return redirect()->back();
     }
 
-    public function updateCart(Request $request){
+    public function updateCart(Request $request)
+    {
         $id = $request->input('id');
         $quantity = $request->input('quantity');
 
