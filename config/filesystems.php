@@ -68,10 +68,10 @@ return [
         'gcs' => [
             'driver' => 'gcs',
             'project_id' => env('GOOGLE_CLOUD_PROJECT_ID', 'trusty-banner-273005'),
-            'key_file' => env('GOOGLE_CLOUD_KEY_FILE', 'key.json'), // optional: /path/to/service-account.json
-            'bucket' => env('GOOGLE_CLOUD_STORAGE_BUCKET', 'https://storage.googleapis.com/'),
-            'path_prefix' => env('GOOGLE_CLOUD_STORAGE_PATH_PREFIX', 'lii_musik/stunited'), // optional: /default/path/to/apply/in/bucket
-            'storage_api_uri' => env('GOOGLE_CLOUD_STORAGE_API_URI', null), // see: Public URLs below
+            'key_file' => env('GOOGLE_CLOUD_KEY_FILE', '../key.json'),
+            'bucket' => env('GOOGLE_CLOUD_STORAGE_BUCKET', 'stunited-intern'),
+            'path_prefix' => env('GOOGLE_CLOUD_STORAGE_PATH_PREFIX', null),
+            'storage_api_uri' => env('GOOGLE_CLOUD_STORAGE_API_URI', 'https://storage.googleapis.com/stunited-intern'),
         ],
     ],
 
