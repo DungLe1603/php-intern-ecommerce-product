@@ -2188,3 +2188,17 @@ textarea.input {
     margin-top: 10px;
   }
 }
+
+
+/*=========================================================
+	ADDITIONAL CHANGES
+===========================================================*/
+
+.quantity-control {
+  max-width: 80px;
+}
+
+th,td{
+  padding: 20px;
+  padding-right: 30px;
+}
