@@ -91,6 +91,12 @@
 
                 <!-- Main row -->
                 <div>
+                    {{--show message success--}}
+                    @if(session()->has('success'))
+                        <div class="alert alert-success">
+                            {{ session()->get('success') }}
+                        </div>
+                    @endif
                     <div class="nav-link bg bg-gradient-light">
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
@@ -149,7 +155,8 @@
                                 <td>{{$value->created_at}}</td>
                                 <td>{{$value->updated_at}}</td>
                                 <td>{{$value->images}}</td>
-                                <td><a href="">
+
+                                <td><a href="{{route('admin.editProduct',$value->id)}}">
                                         <button class="btn btn-primary">Edit</button>
                                     </a></td>
                                 <td><a href="">

@@ -34,4 +34,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
     Route::get('/dashboard', 'DashboardController@dashboard')->name('dashboard');
     //Product
     Route::get('/product', 'ProductController@listAllProducts')->name('listAllProducts');
+    Route::get('/edit/{product}', 'ProductController@editProduct')->name('editProduct');
+    Route::put('/update/{id}', 'ProductController@updateProduct')->name('updateProduct');
 });
