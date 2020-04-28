@@ -15,9 +15,8 @@ class ProductController extends Controller
         return view('admin.product.list_products', compact('products'));
     }
 
-    public function editProduct($id)
+    public function editProduct(Product $product)
     {
-        $product = Product::where('id', $id)->first();
 
         return view('admin.product.editProduct', compact('product'));
     }
