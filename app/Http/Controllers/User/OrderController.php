@@ -15,11 +15,13 @@ class OrderController extends Controller
 
     public function create()
     {
-        return view('user.cart.checkout');
+        return view('user.order.create');
     }
 
-    public function store()
+    public function store(Request $request)
     {
+
+
         return view('user.order.show');
     }
 }
