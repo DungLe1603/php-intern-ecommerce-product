@@ -11,12 +11,10 @@ use App\Model\Product;
 use App\Model\Order;
 use App\Model\OrderProduct;
 
-
 class OrderController extends Controller
 {
     public function show()
     {
-
     }
 
     public function create()
@@ -26,8 +24,7 @@ class OrderController extends Controller
 
     public function store(StoreOrder $request)
     {
-        if (!$this->validateQuantity())
-        {
+        if (!$this->validateQuantity()) {
             return 'Not enough products';
         }
 
@@ -70,7 +67,7 @@ class OrderController extends Controller
                 break;
 
             case 'email':
-                $info['body'] = 'You will receive your invoice in email soon.'; 
+                $info['body'] = 'You will receive your invoice in email soon.';
                 break;
             default:
                 break;
@@ -84,8 +81,7 @@ class OrderController extends Controller
     {
         foreach (\Cart::getContent() as $item) {
             $product = Product::find($item->id);
-            if ($product->quantity < $item->quantity)
-            {
+            if ($product->quantity < $item->quantity) {
                 return false;
             }
         }
