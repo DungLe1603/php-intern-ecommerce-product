@@ -65,7 +65,7 @@
 
                             <!-- Order notes -->
                             <div class="order-notes">
-                                <textarea class="input" placeholder="Order Notes"></textarea>
+                                <textarea class="input" name="order_notes" placeholder="Order Notes"></textarea>
                             </div>
                             <!-- /Order notes -->
                         </div>
@@ -95,6 +95,28 @@
                                 <div class="order-col">
                                     <div><strong>TOTAL</strong></div>
                                     <div><strong class="order-total">${{Cart::getTotal()}}</strong></div>
+                                </div>
+                            </div>
+                            <div class="payment-method">
+                                <div class="input-radio">
+                                    <input type="radio" name="invoice" value="download" id="payment-1">
+                                    <label for="payment-1">
+                                        <span></span>
+                                        Direct download
+                                    </label>
+                                    <div class="caption">
+                                        <p>Download the invoice directly from the website.</p>
+                                    </div>
+                                </div>
+                                <div class="input-radio">
+                                    <input type="radio" name="invoice" value="email" id="payment-2">
+                                    <label for="payment-2">
+                                        <span></span>
+                                        Email
+                                    </label>
+                                    <div class="caption">
+                                        <p>Receive the invoice in email.</p>
+                                    </div>
                                 </div>
                             </div>
                             <button type="submit" class="primary-btn order-submit">Place order</button>
