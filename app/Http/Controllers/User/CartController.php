@@ -1,31 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\Product;
+use App\Cart;
 
-class ShopController extends Controller
+class CartController extends Controller
 {
-    public function index()
-    {
-
-        $products = Product::paginate(6)->withPath('products');
-
-        return view('user.product.index', compact('products'));
-    }
-
-    public function show(Product $product)
-    {
-        return view('user.product.show', compact('product'));
-    }
-
-    public function showCart()
+    public function show()
     {
         return view('user.cart.show');
     }
 
-    public function addToCart(Product $product)
+    public function add(Product $product)
     {
         \Cart::add(array(
             'id' => $product->id,
@@ -39,7 +28,7 @@ class ShopController extends Controller
         return redirect()->back();
     }
 
-    public function updateCart(Request $request)
+    public function update(Request $request)
     {
         $id = $request->input('id');
         $quantity = $request->input('quantity');
@@ -54,7 +43,7 @@ class ShopController extends Controller
         return $quantity;
     }
 
-    public function removeFromCart(Product $product)
+    public function remove(Product $product)
     {
         \Cart::remove($product->id);
         

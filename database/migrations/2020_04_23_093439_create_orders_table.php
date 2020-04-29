@@ -20,8 +20,7 @@ class CreateOrdersTable extends Migration
             $table->string('address');
             $table->string('phone');
             $table->string('email');
-            $table->string('order_notes');
-            $table->dateTime('order_date');
+            $table->string('order_notes')->nullable();
             $table->timestamps();
         });
     }
