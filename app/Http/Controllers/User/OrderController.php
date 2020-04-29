@@ -10,6 +10,7 @@ use App\Cart;
 use App\Model\Product;
 use App\Model\Order;
 use App\Model\OrderProduct;
+use App\Mail\Invoice;
 
 class OrderController extends Controller
 {
@@ -69,9 +70,19 @@ class OrderController extends Controller
                     'total' => \Cart::getTotal()
                 ]);
                 break;
-
             case 'email':
                 $info['body'] = 'You will receive your invoice in email soon.';
+
+                $data = [
+                    'order' => $newOrder,
+                    'order_products' => \Cart::getContent(),
+                    'total' => \Cart::getTotal()
+                ];
+
+                $pdf = \PDF::loadView('user.pdf.invoice', $data);
+                $message = new Invoice();
+                $message->attachData($pdf->output(), "invoice.pdf");
+                \Mail::to($newOrder->email)->send($message);
                 break;
             default:
                 break;
@@ -94,6 +105,8 @@ class OrderController extends Controller
             $pdf = \PDF::loadView('user.pdf.invoice', $data);
             return $pdf->download('invoice.pdf');
         }
+
+        return redirect()->back();
     }
 
 
