@@ -1,5 +1,7 @@
 <?php
 
+use Maatwebsite\Excel\Facades\Excel;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,4 +38,5 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
     Route::get('/product', 'ProductController@listAllProducts')->name('listAllProducts');
     Route::get('/edit/{product}', 'ProductController@editProduct')->name('editProduct');
     Route::put('/update/{id}', 'ProductController@updateProduct')->name('updateProduct');
+    Route::get('/exportProduct', 'ProductController@exportProduct')->name('exportProduct');
 });
