@@ -12,17 +12,21 @@ class ShopController extends Controller
 
         $products = Product::paginate(6)->withPath('products');
 
-        return view('user.products', compact('products'));
+        return view('user.product.index', compact('products'));
     }
 
-    public function cart()
+    public function show(Product $product)
     {
+        return view('user.product.show', compact('product'));
     }
 
-    public function addToCart($id)
+    public function showCart()
     {
-        $product = Product::find($id);
-        
+        return view('user.cart.show');
+    }
+
+    public function addToCart(Product $product)
+    {
         \Cart::add(array(
             'id' => $product->id,
             'name' => $product->product_name,
@@ -35,9 +39,24 @@ class ShopController extends Controller
         return redirect()->back();
     }
 
-    public function removeFromCart($id)
+    public function updateCart(Request $request)
     {
-        \Cart::remove($id);
+        $id = $request->input('id');
+        $quantity = $request->input('quantity');
+
+        \Cart::update($id, array(
+            'quantity' => array(
+                'relative' => false,
+                'value' => $quantity
+            ),
+          ));
+
+        return $quantity;
+    }
+
+    public function removeFromCart(Product $product)
+    {
+        \Cart::remove($product->id);
         
         return redirect()->back();
     }
