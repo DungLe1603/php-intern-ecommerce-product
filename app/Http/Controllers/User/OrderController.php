@@ -90,8 +90,7 @@ class OrderController extends Controller
             'total' => session('total')
         ];
 
-        if (isset($data['order']) && isset($data['order_products']) && isset($data['total']))
-        {
+        if (isset($data['order']) && isset($data['order_products']) && isset($data['total'])) {
             $pdf = \PDF::loadView('user.pdf.invoice', $data);
             return $pdf->download('invoice.pdf');
         }
