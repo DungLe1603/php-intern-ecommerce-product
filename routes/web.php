@@ -17,14 +17,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::group(['namespace' => 'User'], function () {
+    //Product
+    Route::get('products', 'ProductController@index');
+    Route::get('products/{product}', 'ProductController@show');
 
-// User
-Route::get('products', 'ShopController@index');
+    //Cart
+    Route::get('cart', 'CartController@show');
+    Route::get('add-to-cart/{product}', 'CartController@add');
+    Route::get('remove-from-cart/{product}', 'CartController@remove');
+    Route::patch('update-cart', 'CartController@update');
 
-//Cart
-Route::get('cart', 'ShopController@cart');
-Route::get('add-to-cart/{id}', 'ShopController@addToCart');
-Route::get('remove-from-cart/{id}', 'ShopController@removeFromCart');
+    // Order
+    Route::get('checkout', 'OrderController@create');
+    Route::post('order', 'OrderController@store');
+});
+
 //Admin
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], function () {
     Route::get('/', 'LoginController@showLogin')->name('showLogin');

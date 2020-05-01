@@ -10,7 +10,7 @@ services:
       - .:/var/www/app
     working_dir: /var/www/app
     environment:
-      PHP_MEM_LIMIT: -1     
+      PHP_MEM_LIMIT: -1
 
   db:
     image: mysql:5.7

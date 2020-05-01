@@ -19,7 +19,6 @@ class OrdersTableSeeder extends Seeder
                 'phone' => '0975552480',
                 'email' => 'thientrankhh@gmail.com',
                 'order_notes' => '',
-                'order_date' => '2020-04-24',
            ]
        ];
 

@@ -9,7 +9,6 @@
 			<div class="row">
 				<div class="col-md-12">
 					<ul class="breadcrumb-tree">
-						<li><a href="#">Home</a></li>
 						<li class="active">Headphones ({{ $products->total() }})</li>
 					</ul>
 				</div>
@@ -56,13 +55,13 @@
 						<div class="col-md-4 col-xs-6">
 							<div class="product">
 								<div class="product-img">
-									<img src="./img/product01.png" alt="">
+									<img src="/electro/img/product01.png" alt="">
 									<div class="product-label">
 										<span class="new">NEW</span>
 									</div>
 								</div>
 								<div class="product-body">
-									<h3 class="product-name"><a href="#">{{$product->product_name}}</a></h3>
+									<h3 class="product-name"><a href="{{url('products') . '/' . $product->id}}">{{$product->product_name}}</a></h3>
 									<h4 class="product-price">$ {{ $product->price}}</h4>
 									<div class="product-rating">
 										<i class="fa fa-star"></i>
@@ -72,7 +71,7 @@
 										<i class="fa fa-star"></i>
 									</div>
 									<div class="product-btns">
-										<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+										<button class="quick-view"><a href="{{ url('products') . '/' . $product->id }}"><i class="fa fa-eye"></i><span class="tooltipp">view</span></a></button>
 									</div>
 								</div>
 								
