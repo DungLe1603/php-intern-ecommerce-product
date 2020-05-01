@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequest extends FormRequest
+class ImportProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,14 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'username' => 'required|min:3|max:20',
-            'password' => 'required|min:2|max20'
+            'file' => 'required'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'file.required' => "You don't have file",
         ];
     }
 }

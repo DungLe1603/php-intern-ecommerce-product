@@ -33,7 +33,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
     Route::get('/dashboard', 'DashboardController@dashboard')->name('dashboard');
     //Product
     Route::get('/product', 'ProductController@listAllProducts')->name('listAllProducts');
-    Route::get('/edit/{id}', 'ProductController@editProduct')->name('editProduct');
+    Route::post('/store', 'ProductController@store')->name('store');
+    Route::get('/edit/{product}', 'ProductController@editProduct')->name('editProduct');
     Route::put('/update/{id}', 'ProductController@updateProduct')->name('updateProduct');
     Route::get('/exportProduct', 'ProductController@exportProduct')->name('exportProduct');
+    Route::post('/importProduct', 'ProductController@importProduct')->name('importProduct');
 });
