@@ -38,4 +38,5 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
     Route::put('/update/{id}', 'ProductController@updateProduct')->name('updateProduct');
     Route::get('/exportProduct', 'ProductController@exportProduct')->name('exportProduct');
     Route::post('/importProduct', 'ProductController@importProduct')->name('importProduct');
+    Route::delete('/destroyProduct/{id}', 'ProductController@destroyProduct')->name('destroyProduct');
 });

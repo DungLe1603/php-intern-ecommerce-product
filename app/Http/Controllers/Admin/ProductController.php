@@ -72,4 +72,11 @@ class ProductController extends Controller
 
         return redirect()->back()->with('success', 'Import Success');
     }
+
+    public function destroyProduct($id)
+    {
+        Product::findOrFail($id)->delete();
+
+        return redirect()->back()->with('success', 'Delete Product Success');
+    }
 }

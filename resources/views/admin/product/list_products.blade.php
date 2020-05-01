@@ -1,6 +1,7 @@
 @extends('admin.layouts.content')
 
 @section('content')
+    <script type="text/javascript" src="{{asset('lte\js\delete_product.js')}}"></script>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -289,9 +290,15 @@
                                 <td><a href="{{route('admin.editProduct',$value->id)}}">
                                         <button class="btn btn-primary">Edit</button>
                                     </a></td>
-                                <td><a href="">
-                                        <button class="btn btn-danger">Delete</button>
-                                    </a></td>
+                                <td>
+                                    <form action="{{route('admin.destroyProduct',$value->id)}}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" class="btn btn-danger"
+                                                onclick="return confirm('Do you delete it ?')">Delete
+                                        </button>
+                                    </form>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>
