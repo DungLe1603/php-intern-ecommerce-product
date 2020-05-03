@@ -2,6 +2,7 @@
 
 use Maatwebsite\Excel\Facades\Excel;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,10 +36,10 @@ Route::group(['namespace' => 'User'], function () {
 
 //Admin
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], function () {
-    Route::get('/', 'LoginController@showLogin')->name('showLogin');
+    Route::get('/', 'LoginController@showLogin')->name('showLogin')->middleware('checkLoginPages');
     Route::post('/handle', 'LoginController@handleLogin')->name('handleLogin');
     Route::get('/logout', 'LoginController@logout')->name('logout');
-    Route::get('/dashboard', 'DashboardController@dashboard')->name('dashboard');
+    Route::get('/dashboard', 'DashboardController@dashboard')->name('dashboard')->middleware('checkLoginAdmin');
     //Product
     Route::get('/product', 'ProductController@listAllProducts')->name('listAllProducts');
     Route::post('/store', 'ProductController@store')->name('store');

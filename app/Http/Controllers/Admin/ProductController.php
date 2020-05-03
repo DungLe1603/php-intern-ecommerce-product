@@ -13,6 +13,11 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('checkLoginAdmin');
+    }
+
     public function listAllProducts()
     {
         $products = Product::paginate(8);
