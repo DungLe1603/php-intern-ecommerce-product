@@ -53,17 +53,21 @@ class OrderController extends Controller
             $orderProduct->save();
         }
 
-        \Cart::clear();
-
+        
         $info = [
             'title' => 'Sucess!',
             'body' => '',
-            'link' => '',
+            'link' => url('invoice'),
         ];
 
         switch ($request->input('invoice')) {
             case 'download':
                 $info['body'] = 'Your invoice can be downloaded from this link:';
+                session([
+                    'order' => $newOrder,
+                    'order_products' => \Cart::getContent(),
+                    'total' => \Cart::getTotal()
+                ]);
                 break;
 
             case 'email':
@@ -73,8 +77,25 @@ class OrderController extends Controller
                 break;
         }
 
+        \Cart::clear();
+        
         return view('user.order.show', compact('info'));
     }
+
+    public function invoice()
+    {
+        $data = [
+            'order' => session('order'),
+            'order_products' => session('order_products'),
+            'total' => session('total')
+        ];
+
+        if (isset($data['order']) && isset($data['order_products']) && isset($data['total'])) {
+            $pdf = \PDF::loadView('user.pdf.invoice', $data);
+            return $pdf->download('invoice.pdf');
+        }
+    }
+
 
     // Validate: there is enough product in stock
     private function validateQuantity()

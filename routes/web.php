@@ -31,6 +31,7 @@ Route::group(['namespace' => 'User'], function () {
     // Order
     Route::get('checkout', 'OrderController@create');
     Route::post('order', 'OrderController@store');
+    Route::get('invoice', 'OrderController@invoice');
 });
 
 //Admin
