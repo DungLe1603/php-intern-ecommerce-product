@@ -28,10 +28,6 @@ class OrderController extends Controller
         ]
     ];
 
-    public function show()
-    {
-    }
-
     public function create()
     {
         return view('user.order.create');
@@ -39,45 +35,41 @@ class OrderController extends Controller
 
     public function store(StoreOrder $request)
     {
-        if (!$this->validateQuantity()) {
-            return 'Not enough products';
-        }
-
-        $newOrder = new Order([
-            'total_price' => \Cart::getTotal(),
-            'customer_name' => $request->fullname,
-            'address' => $request->address,
-            'phone' => $request->phone,
-            'email' => $request->email,
-            'order_notes' => $request->order_notes
+        $order = new Order([
+            'total_price' =>    $request->total,
+            'customer_name' =>  $request->fullname,
+            'address' =>        $request->address,
+            'phone' =>          $request->phone,
+            'email' =>          $request->email,
+            'order_notes' =>    $request->order_notes
         ]);
-        $newOrder->save();
+        $order->save();
 
-        foreach (\Cart::getContent() as $item) {
+        foreach ($request->items as $item) {
             $product = Product::find($item->id);
             $product->quantity = $product->quantity - $item->quantity;
             $product->save();
 
             $orderProduct = new OrderProduct([
-                'order_id' => $newOrder->id,
+                'order_id' =>   $order->id,
                 'product_id' => $product->id,
-                'quantity' => $item->quantity,
-                'price' => $item->price
+                'quantity' =>   $item->quantity,
+                'price' =>      $item->price
             ]);
 
             $orderProduct->save();
         }
 
-        $action = $request->input('invoice');
+        $action = $request->invoice;
         $data = [
-            'order' => $newOrder,
-            'order_products' => \Cart::getContent(),
-            'total' => \Cart::getTotal()
+            'order' => $order,
+            'items' => $request->items,
+            'total' => $request->total
         ];
 
         $info = $this->messages[$action];
         if ($action === 'download') {
-            session($data);
+            session(['data' => $data]);
             $info['link'] = url('invoice');
         } elseif ($action === 'email') {
             SendInvoiceEmail::dispatchAfterResponse($data);
@@ -85,35 +77,17 @@ class OrderController extends Controller
 
         \Cart::clear();
         
-        return view('user.order.show', compact('info'));
+        return view('user.order.show', compact('info'))->with('success', 'Thank you for your order!');
     }
 
     public function invoice()
     {
-        $data = [
-            'order' => session('order'),
-            'order_products' => session('order_products'),
-            'total' => session('total')
-        ];
-
-        if (isset($data['order']) && isset($data['order_products']) && isset($data['total'])) {
+        $data = session('data');
+        if (isset($data)) {
             $pdf = \PDF::loadView('user.pdf.invoice', $data);
             return $pdf->download('invoice.pdf');
         }
 
         return redirect()->back();
-    }
-    
-    // Validate: there is enough product in stock
-    private function validateQuantity()
-    {
-        foreach (\Cart::getContent() as $item) {
-            $product = Product::find($item->id);
-            if ($product->quantity < $item->quantity) {
-                return false;
-            }
-        }
-        
-        return true;
     }
 }

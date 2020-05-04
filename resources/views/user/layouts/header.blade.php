@@ -8,18 +8,21 @@
             <div class="row">
                 <!-- LOGO -->
                 <div class="col-md-3">
-                    
+                    <div class="header-logo">
+                        <a href="{{ route('home') }}" class="logo">
+                            <img src="/electro/img/logo.png" alt="">
+                        </a>
+                    </div>
                 </div>
                 <!-- /LOGO -->
 
                 <!-- SEARCH BAR -->
                 <div class="col-md-6">
                     <div class="header-search">
-                        <form method="GET">
+                        <form method="GET" action="{{ route('products.index') }}">
                             <select class="input-select">
-                                <option value="0">All Categories</option>
                             </select>
-                            <input name="slug" class="input" placeholder="Search here">
+                            <input name="slug" class="input" placeholder="Search headphones">
                             <button class="search-btn">Search</button>
                         </form>
                     </div>

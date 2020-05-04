@@ -9,7 +9,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<ul class="breadcrumb-tree">
-							<li><a href="{{url('products')}}">Headphones</a></li>
+							<li><a href="{{ route('products.index') }}">Headphones</a></li>
 							<li class="active">{{$product->product_name}}</li>
 						</ul>
 					</div>
@@ -52,7 +52,7 @@
 							</div>
                             @if (!Cart::get($product->id))
                                 <div class="add-to-cart">
-                                    <a href="{{url('add-to-cart') . '/' . $product->id}}">
+                                    <a href="{{ route('cart.add', $product->id) }}">
                                         <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
                                     </a>
                                 </div>    

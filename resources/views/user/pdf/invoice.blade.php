@@ -149,7 +149,7 @@
                 </td>
             </tr>
             
-            @foreach ($order_products as $item)
+            @foreach ($items as $item)
                 <tr class="item">
                     <td>
                         {{$item->name}}

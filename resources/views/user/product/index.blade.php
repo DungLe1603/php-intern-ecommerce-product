@@ -61,7 +61,7 @@
 									</div>
 								</div>
 								<div class="product-body">
-									<h3 class="product-name"><a href="{{url('products') . '/' . $product->id}}">{{$product->product_name}}</a></h3>
+									<h3 class="product-name"><a href="{{ route('products.show', $product->id) }}">{{$product->product_name}}</a></h3>
 									<h4 class="product-price">$ {{ $product->price}}</h4>
 									<div class="product-rating">
 										<i class="fa fa-star"></i>
@@ -71,13 +71,13 @@
 										<i class="fa fa-star"></i>
 									</div>
 									<div class="product-btns">
-										<button class="quick-view"><a href="{{ url('products') . '/' . $product->id }}"><i class="fa fa-eye"></i><span class="tooltipp">view</span></a></button>
+										<button class="quick-view"><a href="{{ route('products.show', $product->id) }}"><i class="fa fa-eye"></i><span class="tooltipp">view</span></a></button>
 									</div>
 								</div>
 								
 								@if ( Cart::get($product->id) == null)
 									<div class="add-to-cart">
-										<a href="{{ url('add-to-cart/'.$product->id) }}">
+										<a href="{{ route('cart.add', $product->id) }}">
 											<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
 										</a>
 									</div>
