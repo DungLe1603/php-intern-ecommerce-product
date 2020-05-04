@@ -44,7 +44,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
     Route::get('/product', 'ProductController@listAllProducts')->name('listAllProducts');
     Route::post('/store', 'ProductController@store')->name('store');
     Route::get('/edit/{product}', 'ProductController@editProduct')->name('editProduct');
-    Route::put('/update/{id}', 'ProductController@updateProduct')->name('updateProduct');
+    Route::put('/update/{id}', 'ProductController@update')->name('update');
     Route::get('/exportProduct', 'ProductController@exportProduct')->name('exportProduct');
     Route::post('/importProduct', 'ProductController@importProduct')->name('importProduct');
     Route::delete('/destroyProduct/{id}', 'ProductController@destroyProduct')->name('destroyProduct');

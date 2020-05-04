@@ -92,7 +92,7 @@
                 <!-- Main row -->
                 <h2>Update Product</h2>
                 <a href="{{route('admin.listAllProducts')}}" class="btn btn-primary">Back</a>
-                <form action="{{route('admin.updateProduct',$product->id)}}" method="post">
+                <form action="{{route('admin.update',$product->id)}}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('put')
                     <table class="table-condensed">
@@ -102,6 +102,13 @@
                                                                    value="{{$product->product_name}}"
                                                                    placeholder="Enter Product Name"
                                                                    style="width: 98%; margin-left: 2%"></td>
+                            <td>
+                                @if($errors->any())
+                                    @foreach($errors->get('product_name') as $messages)
+                                        <i style="color: red; font-size: 90%; font-family: sans-serif">*{{$messages}}</i>
+                                    @endforeach
+                                @endif
+                            </td>
                         </tr>
                         <tr class="form-group">
                             <th class="col-md-5 float-left"><label for="">Quantity: </label></th>
@@ -159,16 +166,25 @@
                                 @endif
                             </td>
                         </tr>
+                        <tr class="form-group">
+                            <th class="col-md-5 float-left"><label for="">Image: </label>
+                            </th>
+                            <td class="col-md-7 float-left"><input class="" type="file"
+                                                                   name="image"
+                                                                   style="width: 98%; margin-left: 2%">
+                            </td>
+                        </tr>
                         <input class="" type="hidden" name="created_at" value="{{$product->created_at}}"
+                               placeholder="Enter Product Name" style="width: 98%; margin-left: 2%">
+                        <input class="" type="hidden" name="old_image" value="{{$product->images}}"
                                placeholder="Enter Product Name" style="width: 98%; margin-left: 2%">
                     </table>
                     <button class="btn btn-primary">Update</button>
                 </form>
             </div>
             <!-- /.row (main row) -->
-    </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
+        </section>
+        <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
     <script>

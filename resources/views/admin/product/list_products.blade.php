@@ -137,7 +137,8 @@
                                     </div>
                                     <div class="modal-body">
                                         <div>
-                                            <form action="{{route('admin.store')}}" method="post" enctype="multipart/form-data">
+                                            <form action="{{route('admin.store')}}" method="post"
+                                                  enctype="multipart/form-data">
                                                 @csrf
                                                 <table class="table-condensed">
                                                     <tr class="form-group">
@@ -227,13 +228,13 @@
                                                                                                name="image"
                                                                                                style="width: 98%; margin-left: 2%">
                                                         </td>
-{{--                                                        <td>--}}
-{{--                                                            @if($errors->any())--}}
-{{--                                                                @foreach($errors->get('price') as $messages)--}}
-{{--                                                                    <i style="color: red; font-size: 90%; font-family: sans-serif">*{{$messages}}</i>--}}
-{{--                                                                @endforeach--}}
-{{--                                                            @endif--}}
-{{--                                                        </td>--}}
+                                                        <td>
+                                                            @if($errors->any())
+                                                                @foreach($errors->get('image') as $messages)
+                                                                    <i style="color: red; font-size: 90%; font-family: sans-serif">*{{$messages}}</i>
+                                                                @endforeach
+                                                            @endif
+                                                        </td>
                                                     </tr>
                                                 </table>
                                                 <button class="btn btn-primary">Add</button>
@@ -282,7 +283,8 @@
                                 <td>{{$value->price}}</td>
                                 <td>{{$value->created_at}}</td>
                                 <td>{{$value->updated_at}}</td>
-                                <td><img src="https://storage.googleapis.com/stunited-intern/{{$value->images}}" alt="Product Image" style="width: 50px;height: 50px"></td>
+                                <td><img src="{{\Storage::disk('gcs')->url($value->images)}}" alt="Product Image"
+                                         style="width: 50px;height: 50px"></td>
 
                                 <td><a href="{{route('admin.editProduct',$value->id)}}">
                                         <button class="btn btn-primary">Edit</button>
