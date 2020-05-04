@@ -12,10 +12,9 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $slug = $request->query('slug');
-        if (isset($slug)){
+        if (isset($slug)) {
             $products = Product::where('product_name', 'LIKE', '%' . $slug . '%')->paginate(6)->withPath('products');
-        }
-        else{
+        } else {
             $products = Product::where('quantity', '>', 0)->paginate(6)->withPath('products');
         }
 
@@ -29,6 +28,5 @@ class ProductController extends Controller
 
     public function search($slug)
     {
-        
     }
 }

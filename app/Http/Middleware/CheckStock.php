@@ -12,7 +12,8 @@ class CheckStock
         foreach (\Cart::getContent() as $item) {
             $product = Product::find($item->id);
             if ($product->quantity < $item->quantity) {
-                return redirect()->back()->with('error','Not enough products!');;
+                return redirect()->back()->with('error', 'Not enough products!');
+                ;
             }
         }
 
