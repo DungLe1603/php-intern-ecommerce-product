@@ -137,7 +137,7 @@
                                     </div>
                                     <div class="modal-body">
                                         <div>
-                                            <form action="{{route('admin.store')}}" method="post">
+                                            <form action="{{route('admin.store')}}" method="post" enctype="multipart/form-data">
                                                 @csrf
                                                 <table class="table-condensed">
                                                     <tr class="form-group">
@@ -235,6 +235,21 @@
                                                                 @endforeach
                                                             @endif
                                                         </td>
+                                                    </tr>
+                                                    <tr class="form-group">
+                                                        <th class="col-md-5 float-left"><label for="">Image: </label>
+                                                        </th>
+                                                        <td class="col-md-7 float-left"><input class="" type="file"
+                                                                                               name="image"
+                                                                                               style="width: 98%; margin-left: 2%">
+                                                        </td>
+{{--                                                        <td>--}}
+{{--                                                            @if($errors->any())--}}
+{{--                                                                @foreach($errors->get('price') as $messages)--}}
+{{--                                                                    <i style="color: red; font-size: 90%; font-family: sans-serif">*{{$messages}}</i>--}}
+{{--                                                                @endforeach--}}
+{{--                                                            @endif--}}
+{{--                                                        </td>--}}
                                                     </tr>
                                                 </table>
                                                 <button class="btn btn-primary">Add</button>

@@ -9,6 +9,8 @@ use App\Imports\ProductsImport;
 use App\Model\Product;
 use App\Exports\ProductsExport;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
@@ -25,7 +27,7 @@ class ProductController extends Controller
         return view('admin.product.list_products', compact('products'));
     }
 
-    public function store(UpdateProductRequest $request)
+    public function store(Request $request)
     {
         $newProduct = new Product([
             'product_name' => $request->product_name,
