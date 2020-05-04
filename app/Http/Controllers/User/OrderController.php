@@ -11,9 +11,23 @@ use App\Model\Product;
 use App\Model\Order;
 use App\Model\OrderProduct;
 use App\Mail\Invoice;
+use App\Jobs\SendInvoiceEmail;
 
 class OrderController extends Controller
 {
+    private $messages = [
+        'download' => [
+            'title' => 'Success!',
+            'body' => 'Your invoice can be downloaded from this link:',
+            'link' => ''
+        ],
+        'email' => [
+            'title' => 'Success!',
+            'body' => 'You will receive your invoice in email soon.',
+            'link' => ''
+        ]
+    ];
+
     public function show()
     {
     }
@@ -54,38 +68,22 @@ class OrderController extends Controller
             $orderProduct->save();
         }
 
-        
-        $info = [
-            'title' => 'Sucess!',
-            'body' => '',
-            'link' => url('invoice'),
-        ];
+        $action = $request->input('invoice');
+        $data = [
+            'order' => $newOrder,
+            'order_products' => \Cart::getContent(),
+            'total' => \Cart::getTotal()
+        ];  
 
-        switch ($request->input('invoice')) {
-            case 'download':
-                $info['body'] = 'Your invoice can be downloaded from this link:';
-                session([
-                    'order' => $newOrder,
-                    'order_products' => \Cart::getContent(),
-                    'total' => \Cart::getTotal()
-                ]);
-                break;
-            case 'email':
-                $info['body'] = 'You will receive your invoice in email soon.';
-
-                $data = [
-                    'order' => $newOrder,
-                    'order_products' => \Cart::getContent(),
-                    'total' => \Cart::getTotal()
-                ];
-
-                $pdf = \PDF::loadView('user.pdf.invoice', $data);
-                $message = new Invoice();
-                $message->attachData($pdf->output(), "invoice.pdf");
-                \Mail::to($newOrder->email)->send($message);
-                break;
-            default:
-                break;
+        $info = $this->messages[$action];
+        if ($action === 'download')
+        {
+            session($data);
+            $info['link'] = url('invoice');
+        } 
+        else if ($action === 'email')
+        {
+            SendInvoiceEmail::dispatchAfterResponse($data);
         }
 
         \Cart::clear();
@@ -108,8 +106,7 @@ class OrderController extends Controller
 
         return redirect()->back();
     }
-
-
+    
     // Validate: there is enough product in stock
     private function validateQuantity()
     {

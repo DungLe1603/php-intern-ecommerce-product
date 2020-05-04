@@ -99,7 +99,7 @@
                             </div>
                             <div class="payment-method">
                                 <div class="input-radio">
-                                    <input type="radio" name="invoice" value="download" id="payment-1">
+                                    <input type="radio" name="invoice" value="download" id="payment-1" checked>
                                     <label for="payment-1">
                                         <span></span>
                                         Direct download

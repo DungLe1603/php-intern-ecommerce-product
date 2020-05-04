@@ -16,15 +16,18 @@ class CartController extends Controller
 
     public function add(Product $product)
     {
-        \Cart::add(array(
-            'id' => $product->id,
-            'name' => $product->product_name,
-            'price' => $product->price,
-            'quantity' => 1,
-            'attributes' => array(),
-            'associatedModel' => $product
-        ));
-
+        if ($product->quantity > 0)
+        {
+            \Cart::add(array(
+                'id' => $product->id,
+                'name' => $product->product_name,
+                'price' => $product->price,
+                'quantity' => 1,
+                'attributes' => array(),
+                'associatedModel' => $product
+            ));
+        }
+        
         return redirect()->back();
     }
 
