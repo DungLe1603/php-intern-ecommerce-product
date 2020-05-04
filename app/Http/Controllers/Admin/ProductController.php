@@ -34,7 +34,6 @@ class ProductController extends Controller
             'quantity' => $request->quantity,
             'description' => $request->description,
             'configuration' => $request->configuration,
-            'colors' => $request->colors,
             'price' => $request->price,
 //            The image value is the default when the cdn refer is set again
             'images' => 'img.jpg',
@@ -58,7 +57,6 @@ class ProductController extends Controller
             'quantity' => $params['quantity'],
             'description' => $params['description'],
             'configuration' => $params['configuration'],
-            'colors' => $params['colors'],
             'price' => $params['price'],
             'created_at' => $params['created_at'],
             'updated_at' => Carbon::now('Asia/Ho_Chi_Minh')

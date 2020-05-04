@@ -146,20 +146,6 @@
                             </td>
                         </tr>
                         <tr class="form-group">
-                            <th class="col-md-5 float-left"><label for="">Color: </label></th>
-                            <td class="col-md-7 float-left"><input class="" type="text" name="colors"
-                                                                   value="{{$product->colors}}"
-                                                                   placeholder="Enter Product Name"
-                                                                   style="width: 98%; margin-left: 2%"></td>
-                            <td>
-                                @if($errors->any())
-                                    @foreach($errors->get('colors') as $messages)
-                                        <i style="color: red; font-size: 90%; font-family: sans-serif">*{{$messages}}</i>
-                                    @endforeach
-                                @endif
-                            </td>
-                        </tr>
-                        <tr class="form-group">
                             <th class="col-md-5 float-left"><label for="">Price: </label></th>
                             <td class="col-md-7 float-left"><input class="" type="text" name="price"
                                                                    value="{{$product->price}}"
