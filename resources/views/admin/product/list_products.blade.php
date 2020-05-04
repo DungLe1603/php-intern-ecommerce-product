@@ -285,7 +285,7 @@
                                 <td>{{$value->price}}</td>
                                 <td>{{$value->created_at}}</td>
                                 <td>{{$value->updated_at}}</td>
-                                <td>{{$value->images}}</td>
+                                <td><img src="https://storage.googleapis.com/stunited-intern/{{$value->images}}" alt="Product Image" style="width: 50px;height: 50px"></td>
 
                                 <td><a href="{{route('admin.editProduct',$value->id)}}">
                                         <button class="btn btn-primary">Edit</button>
