@@ -137,7 +137,8 @@
                                     </div>
                                     <div class="modal-body">
                                         <div>
-                                            <form action="{{route('admin.store')}}" method="post">
+                                            <form action="{{route('admin.store')}}" method="post"
+                                                  enctype="multipart/form-data">
                                                 @csrf
                                                 <table class="table-condensed">
                                                     <tr class="form-group">
@@ -205,22 +206,6 @@
                                                         </td>
                                                     </tr>
                                                     <tr class="form-group">
-                                                        <th class="col-md-5 float-left"><label for="">Color: </label>
-                                                        </th>
-                                                        <td class="col-md-7 float-left"><input class="" type="text"
-                                                                                               name="colors"
-                                                                                               placeholder="Enter Color"
-                                                                                               style="width: 98%; margin-left: 2%">
-                                                        </td>
-                                                        <td>
-                                                            @if($errors->any())
-                                                                @foreach($errors->get('colors') as $messages)
-                                                                    <i style="color: red; font-size: 90%; font-family: sans-serif">*{{$messages}}</i>
-                                                                @endforeach
-                                                            @endif
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="form-group">
                                                         <th class="col-md-5 float-left"><label for="">Price: </label>
                                                         </th>
                                                         <td class="col-md-7 float-left"><input class="" type="text"
@@ -231,6 +216,21 @@
                                                         <td>
                                                             @if($errors->any())
                                                                 @foreach($errors->get('price') as $messages)
+                                                                    <i style="color: red; font-size: 90%; font-family: sans-serif">*{{$messages}}</i>
+                                                                @endforeach
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="form-group">
+                                                        <th class="col-md-5 float-left"><label for="">Image: </label>
+                                                        </th>
+                                                        <td class="col-md-7 float-left"><input class="" type="file"
+                                                                                               name="image"
+                                                                                               style="width: 98%; margin-left: 2%">
+                                                        </td>
+                                                        <td>
+                                                            @if($errors->any())
+                                                                @foreach($errors->get('image') as $messages)
                                                                     <i style="color: red; font-size: 90%; font-family: sans-serif">*{{$messages}}</i>
                                                                 @endforeach
                                                             @endif
@@ -265,7 +265,6 @@
                             <th>Quantity</th>
                             <th>Description</th>
                             <th>Configuration</th>
-                            <th>Color</th>
                             <th>Price</th>
                             <th>Created At</th>
                             <th>Updated At</th>
@@ -281,11 +280,11 @@
                                 <td>{{$value->quantity}}</td>
                                 <td>{{$value->description}}</td>
                                 <td>{{$value->configuration}}</td>
-                                <td>{{$value->colors}}</td>
                                 <td>{{$value->price}}</td>
                                 <td>{{$value->created_at}}</td>
                                 <td>{{$value->updated_at}}</td>
-                                <td><img src="https://storage.googleapis.com/stunited-intern/{{$value->images}}" alt="Product Image" style="width: 50px;height: 50px"></td>
+                                <td><img src="{{\Storage::disk('gcs')->url($value->images)}}" alt="Product Image"
+                                         style="width: 50px;height: 50px"></td>
 
                                 <td><a href="{{route('admin.editProduct',$value->id)}}">
                                         <button class="btn btn-primary">Edit</button>

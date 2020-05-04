@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateProductRequest;
 use App\Http\Requests\ImportProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Imports\ProductsImport;
 use App\Model\Product;
 use App\Exports\ProductsExport;
 use Carbon\Carbon;
+use Image;
+use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
@@ -25,17 +28,20 @@ class ProductController extends Controller
         return view('admin.product.list_products', compact('products'));
     }
 
-    public function store(UpdateProductRequest $request)
+    public function store(CreateProductRequest $request)
     {
+        $image = $request->file('image')->store('');
+        $img = Image::make($request->file('image'));
+        $img->resize(600, 600)->save();
+        Storage::disk('gcs')->putFile('', $request->file('image'));
+
         $newProduct = new Product([
             'product_name' => $request->product_name,
             'quantity' => $request->quantity,
             'description' => $request->description,
             'configuration' => $request->configuration,
-            'colors' => $request->colors,
             'price' => $request->price,
-//            The image value is the default when the cdn refer is set again
-            'images' => 'img.jpg',
+            'images' => $image,
             'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
         $newProduct->save();
@@ -48,16 +54,25 @@ class ProductController extends Controller
         return view('admin.product.editProduct', compact('product'));
     }
 
-    public function updateProduct(UpdateProductRequest $request, $id)
+    public function update(UpdateProductRequest $request, $id)
     {
         $params = $request->all();
+        if ($request->file('image') == null) {
+            $image = $params['old_image'];
+        } else {
+            $image = $request->file('image')->store('');
+            $img = Image::make($request->file('image'));
+            $img->resize(600, 600)->save();
+            Storage::disk('gcs')->putFile('', $request->file('image'));
+        }
+
         $dataUp = [
             'product_name' => $params['product_name'],
             'quantity' => $params['quantity'],
             'description' => $params['description'],
             'configuration' => $params['configuration'],
-            'colors' => $params['colors'],
             'price' => $params['price'],
+            'images' => $image,
             'created_at' => $params['created_at'],
             'updated_at' => Carbon::now('Asia/Ho_Chi_Minh')
         ];
