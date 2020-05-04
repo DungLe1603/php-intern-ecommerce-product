@@ -6,7 +6,8 @@
         <div id="responsive-nav">
             <!-- NAV -->
             <ul class="main-nav nav navbar-nav">
-                <li class="active"><a href="{{url('products')}}">Home</a></li>
+                <li class="{{ Request::is('/') ? 'active' : '' }}"><a href="{{route('home')}}">Home</a></li>
+                <li class="{{ Request::is('products') ? 'active' : '' }}"><a href="{{route('products.index')}}">Headphones</a></li>
             </ul>
             <!-- /NAV -->
         </div>

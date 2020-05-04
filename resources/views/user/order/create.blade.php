@@ -1,6 +1,8 @@
 @extends('user.layout')
 
 @section('content')
+    @include('user.layouts.flash')
+
     <!-- BREADCRUMB -->
 		<div id="breadcrumb" class="section">
 			<!-- container -->
@@ -10,7 +12,7 @@
 					<div class="col-md-12">
 						<h3 class="breadcrumb-header">Checkout</h3>
 						<ul class="breadcrumb-tree">
-							<li><a href="{{url('products')}}">Home</a></li>
+							<li><a href="{{ route('home') }}">Home</a></li>
 							<li class="active">Checkout</li>
 						</ul>
 					</div>
@@ -27,7 +29,7 @@
 			<div class="container">
 				<!-- row -->
 				<div class="row">
-                    <form action="{{url('order')}}" method="POST">
+                    <form action="{{ route('orders.store') }}" method="POST">
                         @csrf
                         <div class="col-md-7">
                             
@@ -37,25 +39,25 @@
                                     <h3 class="title">Billing address</h3>
                                 </div>
                                 <div class="form-group">
-                                    <input class="input" type="text" name="fullname" placeholder="Full Name">
+                                    <input class="input" type="text" name="fullname" placeholder="Full Name" value="{{ old('fullname') }}">
                                     @error('fullname')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <input class="input" type="email" name="email" placeholder="Email">
+                                    <input class="input" type="email" name="email" placeholder="Email" value="{{ old('email') }}">
                                     @error('email')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <input class="input" type="text" name="address" placeholder="Address">
+                                    <input class="input" type="text" name="address" placeholder="Address" value="{{ old('address') }}">
                                     @error('address')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <input class="input" type="tel" name="phone" placeholder="Telephone">
+                                    <input class="input" type="tel" name="phone" placeholder="Telephone" value="{{ old('phone') }}">
                                     @error('phone')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -65,7 +67,7 @@
 
                             <!-- Order notes -->
                             <div class="order-notes">
-                                <textarea class="input" name="order_notes" placeholder="Order Notes"></textarea>
+                                <textarea class="input" name="order_notes" placeholder="Order Notes" value="{{ old('order_notes') }}"></textarea>
                             </div>
                             <!-- /Order notes -->
                         </div>
