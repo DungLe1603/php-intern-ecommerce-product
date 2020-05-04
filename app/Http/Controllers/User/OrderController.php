@@ -73,16 +73,13 @@ class OrderController extends Controller
             'order' => $newOrder,
             'order_products' => \Cart::getContent(),
             'total' => \Cart::getTotal()
-        ];  
+        ];
 
         $info = $this->messages[$action];
-        if ($action === 'download')
-        {
+        if ($action === 'download') {
             session($data);
             $info['link'] = url('invoice');
-        } 
-        else if ($action === 'email')
-        {
+        } elseif ($action === 'email') {
             SendInvoiceEmail::dispatchAfterResponse($data);
         }
 

@@ -16,8 +16,7 @@ class CartController extends Controller
 
     public function add(Product $product)
     {
-        if ($product->quantity > 0)
-        {
+        if ($product->quantity > 0) {
             \Cart::add(array(
                 'id' => $product->id,
                 'name' => $product->product_name,
