@@ -1,6 +1,7 @@
 @extends('admin.layouts.content')
 
 @section('content')
+    <script type="text/javascript" src="{{asset('lte\js\delete_product.js')}}"></script>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -97,36 +98,163 @@
                             {{ session()->get('success') }}
                         </div>
                     @endif
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <form action="{{route('admin.importProduct')}}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                <input type="file" name="file">
+                                <button type="submit" class="btn btn-primary">Add</button>
+                            </form>
+                        </li>
+                        <li class="nav-item">
+                            @if($errors->any())
+                                @foreach($errors->get('file') as $messages)
+                                    <i style="color: red; font-size: 90%; font-family: sans-serif">*{{$messages}}</i>
+                                @endforeach
+                            @endif
+                        </li>
+                        <li class="nav-item">
+                            <i class="fa fa-print" style="font-size:24px"></i>
+                            <a href="{{asset('lte/excel/products.xlsx')}}">Download excel template</a>
+                        </li>
+                    </ul>
                     <div class="nav-link bg bg-gradient-light">
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-success float-left" data-toggle="modal"
+                        <button type="button" class="btn btn-success" data-toggle="modal"
                                 data-target="#exampleModal">
                             Create New Product
                         </button>
-                        <div class="export">
-                            <a href="{{route('admin.exportProduct')}}" class="btn btn-secondary">Export List Product</a>
-                        </div>
                         <!-- Modal -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
                              aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Create Product</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        ...
+                                        <div>
+                                            <form action="{{route('admin.store')}}" method="post">
+                                                @csrf
+                                                <table class="table-condensed">
+                                                    <tr class="form-group">
+                                                        <th class="col-md-5 float-left"><label for="">Product
+                                                                Name: </label></th>
+                                                        <td class="col-md-7 float-left"><input type="text"
+                                                                                               name="product_name"
+                                                                                               placeholder="Enter Product Name"
+                                                                                               style="width: 98%; margin-left: 2%">
+                                                        </td>
+                                                        <td>
+                                                            @if($errors->any())
+                                                                @foreach($errors->get('product_name') as $messages)
+                                                                    <i style="color: red; font-size: 90%; font-family: sans-serif">*{{$messages}}</i>
+                                                                @endforeach
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="form-group">
+                                                        <th class="col-md-5 float-left"><label for="">Quantity: </label>
+                                                        </th>
+                                                        <td class="col-md-7 float-left"><input class="" type="text"
+                                                                                               name="quantity"
+                                                                                               placeholder="Enter Quantity"
+                                                                                               style="width: 98%; margin-left: 2%">
+                                                        </td>
+                                                        <td>
+                                                            @if($errors->any())
+                                                                @foreach($errors->get('quantity') as $messages)
+                                                                    <i style="color: red; font-size: 90%; font-family: sans-serif">*{{$messages}}</i>
+                                                                @endforeach
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="form-group">
+                                                        <th class="col-md-5 float-left"><label
+                                                                for="">Description: </label></th>
+                                                        <td class="col-md-7 float-left"><textarea id="editor1"
+                                                                                                  name="description"
+                                                                                                  cols="20" rows="5"
+                                                                                                  class="form-control form-control-lg"></textarea>
+                                                        </td>
+                                                        <td>
+                                                            @if($errors->any())
+                                                                @foreach($errors->get('description') as $messages)
+                                                                    <i style="color: red; font-size: 90%; font-family: sans-serif">*{{$messages}}</i>
+                                                                @endforeach
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="form-group">
+                                                        <th class="col-md-5 float-left"><label
+                                                                for="">Configuration: </label></th>
+                                                        <td class="col-md-7 float-left"><textarea id="editor2"
+                                                                                                  name="configuration"
+                                                                                                  cols="20" rows="5"
+                                                                                                  class="form-control form-control-lg"></textarea>
+                                                        </td>
+                                                        <td>
+                                                            @if($errors->any())
+                                                                @foreach($errors->get('configuration') as $messages)
+                                                                    <i style="color: red; font-size: 90%; font-family: sans-serif">*{{$messages}}</i>
+                                                                @endforeach
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="form-group">
+                                                        <th class="col-md-5 float-left"><label for="">Color: </label>
+                                                        </th>
+                                                        <td class="col-md-7 float-left"><input class="" type="text"
+                                                                                               name="colors"
+                                                                                               placeholder="Enter Color"
+                                                                                               style="width: 98%; margin-left: 2%">
+                                                        </td>
+                                                        <td>
+                                                            @if($errors->any())
+                                                                @foreach($errors->get('colors') as $messages)
+                                                                    <i style="color: red; font-size: 90%; font-family: sans-serif">*{{$messages}}</i>
+                                                                @endforeach
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="form-group">
+                                                        <th class="col-md-5 float-left"><label for="">Price: </label>
+                                                        </th>
+                                                        <td class="col-md-7 float-left"><input class="" type="text"
+                                                                                               name="price"
+                                                                                               placeholder="Enter Price"
+                                                                                               style="width: 98%; margin-left: 2%">
+                                                        </td>
+                                                        <td>
+                                                            @if($errors->any())
+                                                                @foreach($errors->get('price') as $messages)
+                                                                    <i style="color: red; font-size: 90%; font-family: sans-serif">*{{$messages}}</i>
+                                                                @endforeach
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <button class="btn btn-primary">Add</button>
+                                            </form>
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
                                         </button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="nav">
+                        <div class="float-left">
+                            {{$products->onEachSide(1)->links()}}
+                        </div>
+                        <div class="export float-right">
+                            <a href="{{route('admin.exportProduct')}}" class="btn btn-secondary">Export List Product</a>
                         </div>
                     </div>
                     <table class="table-bordered text-center">
@@ -148,7 +276,7 @@
                         <tbody>
                         @foreach($products as $key => $value)
                             <tr>
-                                <td>{{$key+1}}</td>
+                                <td>{{$key + $products->firstItem()}}</td>
                                 <td>{{$value->product_name}}</td>
                                 <td>{{$value->quantity}}</td>
                                 <td>{{$value->description}}</td>
@@ -162,9 +290,15 @@
                                 <td><a href="{{route('admin.editProduct',$value->id)}}">
                                         <button class="btn btn-primary">Edit</button>
                                     </a></td>
-                                <td><a href="">
-                                        <button class="btn btn-danger">Delete</button>
-                                    </a></td>
+                                <td>
+                                    <form action="{{route('admin.destroyProduct',$value->id)}}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" class="btn btn-danger"
+                                                onclick="return confirm('Do you delete it ?')">Delete
+                                        </button>
+                                    </form>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -176,4 +310,10 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
+    <script>
+        CKEDITOR.replace('editor1');
+    </script>
+    <script>
+        CKEDITOR.replace('editor2');
+    </script>
 @endsection

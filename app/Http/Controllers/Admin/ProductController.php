@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ImportProductRequest;
+use App\Http\Requests\UpdateProductRequest;
+use App\Imports\ProductsImport;
 use App\Model\Product;
 use App\Exports\ProductsExport;
+use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -17,12 +20,30 @@ class ProductController extends Controller
         return view('admin.product.list_products', compact('products'));
     }
 
+    public function store(UpdateProductRequest $request)
+    {
+        $newProduct = new Product([
+            'product_name' => $request->product_name,
+            'quantity' => $request->quantity,
+            'description' => $request->description,
+            'configuration' => $request->configuration,
+            'colors' => $request->colors,
+            'price' => $request->price,
+//            The image value is the default when the cdn refer is set again
+            'images' => 'img.jpg',
+            'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
+        ]);
+        $newProduct->save();
+
+        return redirect()->route('admin.listAllProducts')->with('success', 'Add Product Success');
+    }
+
     public function editProduct(Product $product)
     {
         return view('admin.product.editProduct', compact('product'));
     }
 
-    public function updateProduct(Request $request, $id)
+    public function updateProduct(UpdateProductRequest $request, $id)
     {
         $params = $request->all();
         $dataUp = [
@@ -33,9 +54,9 @@ class ProductController extends Controller
             'colors' => $params['colors'],
             'price' => $params['price'],
             'created_at' => $params['created_at'],
-            'updated_at' => $params['updated_at']
+            'updated_at' => Carbon::now('Asia/Ho_Chi_Minh')
         ];
-        Product::where('id', $id)->update($dataUp);
+        Product::findOrFail($id)->update($dataUp);
 
         return redirect()->route('admin.listAllProducts')->with('success', 'Update Success');
     }
@@ -43,5 +64,19 @@ class ProductController extends Controller
     public function exportProduct()
     {
         return Excel::download(new ProductsExport(), 'ListProducts.xlsx');
+    }
+
+    public function importProduct(ImportProductRequest $request)
+    {
+        Excel::import(new ProductsImport(), $request->file('file'));
+
+        return redirect()->back()->with('success', 'Import Success');
+    }
+
+    public function destroyProduct($id)
+    {
+        Product::findOrFail($id)->delete();
+
+        return redirect()->back()->with('success', 'Delete Product Success');
     }
 }
