@@ -48,7 +48,6 @@
 
 							<div class="product-options">
 								<label>
-									Color : {{ $product->colors }}
 								</label>
 							</div>
                             @if (!Cart::get($product->id))

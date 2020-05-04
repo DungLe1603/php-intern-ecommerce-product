@@ -28,6 +28,7 @@ class StoreOrder extends FormRequest
             'email' => 'required|email',
             'address' => 'required',
             'phone' => 'required|numeric',
+            'invoice' => 'required'
         ];
     }
 }
