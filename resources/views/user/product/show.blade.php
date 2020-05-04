@@ -30,7 +30,7 @@
 					<div class="col-md-5 col-md-push-1">
 						<div id="product-main-img">
 							<div class="product-preview">
-								<img src="/electro/img/product01.png" alt="">
+								<img src="{{ Storage::disk('gcs')->url($product->images) }}" alt="">
 							</div>
 						</div>
 					</div>
