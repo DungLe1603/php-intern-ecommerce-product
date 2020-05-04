@@ -18,7 +18,6 @@ class ProductsTableSeeder extends Seeder
                 'description' => 'boAt BassHeads 100 Stereo In-Ear Earphones are designed to give you an experience which no other product can match. As the headphones feature 10mm drivers, they give you clear sound with that enhanced bass. In built noise isolation mic ensures you don’t miss those important calls. To use Alexa, simply download & install the “boAt Lifestyle” App from Google Play Store and follow the setup instructions',
                 'configuration' => '-Brand: Boat  -Model: BassHeads 100 -Item Weight: 31.8 g -Product Dimensions: 120 x 0.1 x 0.2 cm ',
                 'images' => 'img01.jpg',
-                'colors' => 'white',
                 'price' => '50',
             ],
             [
@@ -27,7 +26,6 @@ class ProductsTableSeeder extends Seeder
                 'description' => '-Tangle free cable -Brand: Mi -Model Name:Mi Earphones Basic',
                 'configuration' => '-Brand: Boat  -Model: BassHeads 100 -Item Weight: 31.8 g -Product Dimensions: 120 x 0.1 x 0.2 cm ',
                 'images' => 'img02.jpg',
-                'colors' => 'black',
                 'price' => '70',
             ],
             [
@@ -36,7 +34,6 @@ class ProductsTableSeeder extends Seeder
                 'description' => 'boAt BassHeads 100 Stereo In-Ear Earphones are designed to give you an experience which no other product can match. As the headphones feature 10mm drivers, they give you clear sound with that enhanced bass. In built noise isolation mic ensures you don’t miss those important calls. To use Alexa, simply download & install the “boAt Lifestyle” App from Google Play Store and follow the setup instructions',
                 'configuration' => '-Brand: Boat  -Model: BassHeads 100 -Item Weight: 31.8 g -Product Dimensions: 120 x 0.1 x 0.2 cm ',
                 'images' => 'img03.jpg',
-                'colors' => 'white',
                 'price' => '50',
             ],
             [
@@ -45,7 +42,6 @@ class ProductsTableSeeder extends Seeder
                 'description' => 'boAt BassHeads 100 Stereo In-Ear Earphones are designed to give you an experience which no other product can match. As the headphones feature 10mm drivers, they give you clear sound with that enhanced bass. In built noise isolation mic ensures you don’t miss those important calls. To use Alexa, simply download & install the “boAt Lifestyle” App from Google Play Store and follow the setup instructions',
                 'configuration' => '-Brand: Boat  -Model: BassHeads 100 -Item Weight: 31.8 g -Product Dimensions: 120 x 0.1 x 0.2 cm ',
                 'images' => 'img04.jpg',
-                'colors' => 'white',
                 'price' => '50',
             ],
             [
@@ -54,7 +50,6 @@ class ProductsTableSeeder extends Seeder
                 'description' => 'boAt BassHeads 100 Stereo In-Ear Earphones are designed to give you an experience which no other product can match. As the headphones feature 10mm drivers, they give you clear sound with that enhanced bass. In built noise isolation mic ensures you don’t miss those important calls. To use Alexa, simply download & install the “boAt Lifestyle” App from Google Play Store and follow the setup instructions',
                 'configuration' => '-Brand: Boat  -Model: BassHeads 100 -Item Weight: 31.8 g -Product Dimensions: 120 x 0.1 x 0.2 cm ',
                 'images' => 'img05.jpg',
-                'colors' => 'white',
                 'price' => '50',
             ],
             [
@@ -63,7 +58,6 @@ class ProductsTableSeeder extends Seeder
                 'description' => 'boAt BassHeads 100 Stereo In-Ear Earphones are designed to give you an experience which no other product can match. As the headphones feature 10mm drivers, they give you clear sound with that enhanced bass. In built noise isolation mic ensures you don’t miss those important calls. To use Alexa, simply download & install the “boAt Lifestyle” App from Google Play Store and follow the setup instructions',
                 'configuration' => '-Brand: Boat  -Model: BassHeads 100 -Item Weight: 31.8 g -Product Dimensions: 120 x 0.1 x 0.2 cm ',
                 'images' => 'img06.jpg',
-                'colors' => 'white',
                 'price' => '60',
             ],
             [
@@ -72,7 +66,6 @@ class ProductsTableSeeder extends Seeder
                 'description' => 'boAt BassHeads 100 Stereo In-Ear Earphones are designed to give you an experience which no other product can match. As the headphones feature 10mm drivers, they give you clear sound with that enhanced bass. In built noise isolation mic ensures you don’t miss those important calls. To use Alexa, simply download & install the “boAt Lifestyle” App from Google Play Store and follow the setup instructions',
                 'configuration' => '-Brand: Boat  -Model: BassHeads 100 -Item Weight: 31.8 g -Product Dimensions: 120 x 0.1 x 0.2 cm ',
                 'images' => 'img07.jpg',
-                'colors' => 'white',
                 'price' => '65',
             ],
             [
@@ -81,7 +74,6 @@ class ProductsTableSeeder extends Seeder
                 'description' => 'boAt BassHeads 100 Stereo In-Ear Earphones are designed to give you an experience which no other product can match. As the headphones feature 10mm drivers, they give you clear sound with that enhanced bass. In built noise isolation mic ensures you don’t miss those important calls. To use Alexa, simply download & install the “boAt Lifestyle” App from Google Play Store and follow the setup instructions',
                 'configuration' => '-Brand: Boat  -Model: BassHeads 100 -Item Weight: 31.8 g -Product Dimensions: 120 x 0.1 x 0.2 cm ',
                 'images' => 'img08.jpg',
-                'colors' => 'white',
                 'price' => '50',
             ]
         ];

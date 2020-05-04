@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\LoginRequest;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
+
     public function showLogin()
     {
         return view('admin.index');
@@ -26,12 +26,14 @@ class LoginController extends Controller
         if (!Hash::check($request->password, $user->password)) {
             return redirect()->back()->with('error', 'Password Invalid');
         }
+        session(['user' => $user]);
 
         return redirect()->route('admin.dashboard')->with('success', 'Login Successfull');
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
+        $request->session()->forget('user');
         return redirect()->route('admin.showLogin')->with('logout', 'Logout Success !');
     }
 }

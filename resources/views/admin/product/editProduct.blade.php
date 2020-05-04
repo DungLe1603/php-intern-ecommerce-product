@@ -90,62 +90,105 @@
                 <!-- /.row -->
 
                 <!-- Main row -->
-                <div class="">
-                    <h2>Update Product</h2>
-                    <form action="{{route('admin.updateProduct',$product->id)}}" method="post">
-                        @csrf
-                        @method('put')
-                        <table class="table-condensed">
-                            <tr class="form-group">
-                                <th class="col-md-5 float-left"><label for="">Product Name: </label></th>
-                                <td class="col-md-7 float-left"><input  type="text"  name="product_name" value="{{$product->product_name}}" placeholder="Enter Product Name" style="width: 98%; margin-left: 2%"></td>
-                            </tr>
-                            <tr class="form-group">
-                                <th class="col-md-5 float-left"><label for="">Quantity: </label></th>
-                                <td class="col-md-7 float-left"><input class="" type="text" name="quantity" value="{{$product->quantity}}" placeholder="Enter Product Name" style="width: 98%; margin-left: 2%"></td>
-                            </tr>
-                            <tr class="form-group">
-                                <th class="col-md-5 float-left"><label for="">Description: </label></th>
-                                <td class="col-md-7 float-left"><textarea id="editor1" name="description" cols="30" rows="5" class="form-control form-control-lg">{{$product->description}}</textarea></td>
-                            </tr>
-                            <tr class="form-group">
-                                <th class="col-md-5 float-left"><label for="">Configuration: </label></th>
-                                <td class="col-md-7 float-left"><textarea id="editor2" name="configuration" cols="30" rows="5" class="form-control form-control-lg">{{$product->configuration}}</textarea></td>
-                            </tr>
-                            <tr class="form-group">
-                                <th class="col-md-5 float-left"><label for="">Color: </label></th>
-                                <td class="col-md-7 float-left"><input class="" type="text" name="colors" value="{{$product->colors}}" placeholder="Enter Product Name" style="width: 98%; margin-left: 2%"></td>
-                            </tr>
-                            <tr class="form-group">
-                                <th class="col-md-5 float-left"><label for="">Price: </label></th>
-                                <td class="col-md-7 float-left"><input class="" type="text" name="price" value="{{$product->price}}" placeholder="Enter Product Name" style="width: 98%; margin-left: 2%"></td>
-                            </tr>
-                            <tr class="form-group">
-                                <th class="col-md-5 float-left"><label for="">Created At: </label></th>
-                                <td class="col-md-7 float-left"><input class="" type="date" name="created_at" value="{{$product->created_at}}" placeholder="Enter Product Name" style="width: 98%; margin-left: 2%"></td>
-                            </tr>
-                            <tr class="form-group">
-                                <th class="col-md-5 float-left"><label for="">Updated At: </label></th>
-                                <td class="col-md-7 float-left"><input class="" type="date" name="updated_at" value="{{$product->updated_at}}" placeholder="Enter Product Name" style="width: 98%; margin-left: 2%"></td>
-                            </tr>
-{{--                            <tr class="form-group">--}}
-{{--                                <th class="col-md-5 float-left"><label for="">Images: </label></th>--}}
-{{--                                <td class="col-md-7 float-left"><input class="" type="file" name="configuration" value="" placeholder="Enter Product Name" style="width: 98%; margin-left: 2%"></td>--}}
-{{--                            </tr>--}}
-                        </table>
-                        <button class="btn btn-primary">Update</button>
-                    </form>
-                </div>
-                <!-- /.row (main row) -->
-            </div><!-- /.container-fluid -->
-        </section>
-        <!-- /.content -->
+                <h2>Update Product</h2>
+                <a href="{{route('admin.listAllProducts')}}" class="btn btn-primary">Back</a>
+                <form action="{{route('admin.updateProduct',$product->id)}}" method="post">
+                    @csrf
+                    @method('put')
+                    <table class="table-condensed">
+                        <tr class="form-group">
+                            <th class="col-md-5 float-left"><label for="">Product Name: </label></th>
+                            <td class="col-md-7 float-left"><input type="text" name="product_name"
+                                                                   value="{{$product->product_name}}"
+                                                                   placeholder="Enter Product Name"
+                                                                   style="width: 98%; margin-left: 2%"></td>
+                        </tr>
+                        <tr class="form-group">
+                            <th class="col-md-5 float-left"><label for="">Quantity: </label></th>
+                            <td class="col-md-7 float-left"><input class="" type="text" name="quantity"
+                                                                   value="{{$product->quantity}}"
+                                                                   placeholder="Enter Product Name"
+                                                                   style="width: 98%; margin-left: 2%"></td>
+                            <td>
+                                @if($errors->any())
+                                    @foreach($errors->get('quantity') as $messages)
+                                        <i style="color: red; font-size: 90%; font-family: sans-serif">*{{$messages}}</i>
+                                    @endforeach
+                                @endif
+                            </td>
+                        </tr>
+                        <tr class="form-group">
+                            <th class="col-md-5 float-left"><label for="">Description: </label></th>
+                            <td class="col-md-7 float-left"><textarea id="editor1" name="description" cols="30"
+                                                                      rows="5"
+                                                                      class="form-control form-control-lg">{{$product->description}}</textarea>
+                            </td>
+                            <td>
+                                @if($errors->any())
+                                    @foreach($errors->get('description') as $messages)
+                                        <i style="color: red; font-size: 90%; font-family: sans-serif">*{{$messages}}</i>
+                                    @endforeach
+                                @endif
+                            </td>
+                        </tr>
+                        <tr class="form-group">
+                            <th class="col-md-5 float-left"><label for="">Configuration: </label></th>
+                            <td class="col-md-7 float-left"><textarea id="editor2" name="configuration" cols="30"
+                                                                      rows="5"
+                                                                      class="form-control form-control-lg">{{$product->configuration}}</textarea>
+                            </td>
+                            <td>
+                                @if($errors->any())
+                                    @foreach($errors->get('configuration') as $messages)
+                                        <i style="color: red; font-size: 90%; font-family: sans-serif">*{{$messages}}</i>
+                                    @endforeach
+                                @endif
+                            </td>
+                        </tr>
+                        <tr class="form-group">
+                            <th class="col-md-5 float-left"><label for="">Color: </label></th>
+                            <td class="col-md-7 float-left"><input class="" type="text" name="colors"
+                                                                   value="{{$product->colors}}"
+                                                                   placeholder="Enter Product Name"
+                                                                   style="width: 98%; margin-left: 2%"></td>
+                            <td>
+                                @if($errors->any())
+                                    @foreach($errors->get('colors') as $messages)
+                                        <i style="color: red; font-size: 90%; font-family: sans-serif">*{{$messages}}</i>
+                                    @endforeach
+                                @endif
+                            </td>
+                        </tr>
+                        <tr class="form-group">
+                            <th class="col-md-5 float-left"><label for="">Price: </label></th>
+                            <td class="col-md-7 float-left"><input class="" type="text" name="price"
+                                                                   value="{{$product->price}}"
+                                                                   placeholder="Enter Product Name"
+                                                                   style="width: 98%; margin-left: 2%"></td>
+                            <td>
+                                @if($errors->any())
+                                    @foreach($errors->get('price') as $messages)
+                                        <i style="color: red; font-size: 90%; font-family: sans-serif">*{{$messages}}</i>
+                                    @endforeach
+                                @endif
+                            </td>
+                        </tr>
+                        <input class="" type="hidden" name="created_at" value="{{$product->created_at}}"
+                               placeholder="Enter Product Name" style="width: 98%; margin-left: 2%">
+                    </table>
+                    <button class="btn btn-primary">Update</button>
+                </form>
+            </div>
+            <!-- /.row (main row) -->
+    </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
     <script>
-        CKEDITOR.replace( 'editor1' );
+        CKEDITOR.replace('editor1');
     </script>
     <script>
-        CKEDITOR.replace( 'editor2' );
+        CKEDITOR.replace('editor2');
     </script>
 @endsection
