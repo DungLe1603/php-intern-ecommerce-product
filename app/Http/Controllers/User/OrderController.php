@@ -52,8 +52,7 @@ class OrderController extends Controller
 
         $action = $request->invoice;
         $info = $this->messages[$action];
-        if ($action === 'email') 
-        {
+        if ($action === 'email') {
             SendInvoiceEmail::dispatchAfterResponse($order);
         }
 
