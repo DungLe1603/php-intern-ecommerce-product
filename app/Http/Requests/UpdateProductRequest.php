@@ -25,21 +25,11 @@ class UpdateProductRequest extends FormRequest
     {
         return [
             'product_name' => 'required',
-            'quantity' => 'required',
+            'quantity' => 'required|numeric|min:1|max:100',
             'description' => 'required',
             'configuration' => 'required',
-            'price' => 'required'
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'product_name.required' => 'Product Name Not Null',
-            'quantity.required' => 'Quantity Not Null',
-            'description.required' => 'Description Not Null',
-            'configuration.required' => 'Configuration Not Null',
-            'price.required' => 'Price Not Null'
+            'price' => 'required|numeric|min:1|max:1000',
+            'image' => 'image:jpg,jpeg,png'
         ];
     }
 }

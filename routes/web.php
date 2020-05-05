@@ -41,11 +41,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
     Route::get('/logout', 'LoginController@logout')->name('logout');
     Route::get('/dashboard', 'DashboardController@dashboard')->name('dashboard')->middleware('checkLoginAdmin');
     //Product
-    Route::get('/product', 'ProductController@listAllProducts')->name('listAllProducts');
+    Route::get('/product', 'ProductController@index')->name('index');
+    Route::get('/create', 'ProductController@create')->name('create');
     Route::post('/store', 'ProductController@store')->name('store');
     Route::get('/edit/{product}', 'ProductController@editProduct')->name('editProduct');
     Route::put('/update/{id}', 'ProductController@update')->name('update');
     Route::get('/exportProduct', 'ProductController@exportProduct')->name('exportProduct');
     Route::post('/importProduct', 'ProductController@importProduct')->name('importProduct');
-    Route::delete('/destroyProduct/{id}', 'ProductController@destroyProduct')->name('destroyProduct');
+    Route::delete('/delete/{id}', 'ProductController@destroy')->name('destroy');
+    //Order and Order Product
+    Route::get('/order', 'OrderController@showOrder')->name('showOrder');
+    Route::get('/order/{id}', 'OrderController@orderProduct')->name('orderProduct');
 });

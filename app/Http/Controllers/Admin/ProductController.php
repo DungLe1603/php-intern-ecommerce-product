@@ -9,7 +9,6 @@ use App\Http\Requests\UpdateProductRequest;
 use App\Imports\ProductsImport;
 use App\Model\Product;
 use App\Exports\ProductsExport;
-use Carbon\Carbon;
 use Image;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
@@ -21,11 +20,16 @@ class ProductController extends Controller
         $this->middleware('checkLoginAdmin');
     }
 
-    public function listAllProducts()
+    public function index()
     {
         $products = Product::paginate(8);
 
         return view('admin.product.list_products', compact('products'));
+    }
+
+    public function create()
+    {
+        return view('admin.product.createProduct');
     }
 
     public function store(CreateProductRequest $request)
@@ -41,12 +45,11 @@ class ProductController extends Controller
             'description' => $request->description,
             'configuration' => $request->configuration,
             'price' => $request->price,
-            'images' => $image,
-            'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
+            'images' => $image
         ]);
         $newProduct->save();
 
-        return redirect()->route('admin.listAllProducts')->with('success', 'Add Product Success');
+        return redirect()->route('admin.index')->with('success', 'Add Product Success');
     }
 
     public function editProduct(Product $product)
@@ -73,12 +76,10 @@ class ProductController extends Controller
             'configuration' => $params['configuration'],
             'price' => $params['price'],
             'images' => $image,
-            'created_at' => $params['created_at'],
-            'updated_at' => Carbon::now('Asia/Ho_Chi_Minh')
         ];
         Product::findOrFail($id)->update($dataUp);
 
-        return redirect()->route('admin.listAllProducts')->with('success', 'Update Success');
+        return redirect()->route('admin.index')->with('success', 'Update Success');
     }
 
     public function exportProduct()
@@ -88,14 +89,19 @@ class ProductController extends Controller
 
     public function importProduct(ImportProductRequest $request)
     {
-        Excel::import(new ProductsImport(), $request->file('file'));
-
-        return redirect()->back()->with('success', 'Import Success');
+        try {
+            Excel::import(new ProductsImport(), $request->file('file'));
+            return redirect()->back()->with('success', 'Import Success');
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            $fail = $e->failures();
+            return redirect()->back()->with('error', 'Format Excel Error');
+        }
     }
 
-    public function destroyProduct($id)
+    public function destroy($id)
     {
-        Product::findOrFail($id)->delete();
+        ;
+        Product::destroy($id);
 
         return redirect()->back()->with('success', 'Delete Product Success');
     }
