@@ -22,7 +22,7 @@
                         <form method="GET" action="{{ route('products.index') }}">
                             <select class="input-select">
                             </select>
-                            <input name="slug" class="input" placeholder="Search headphones">
+                            <input name="slug" class="input" placeholder="Search headphones" value="{{ app('request')->input('slug') }}"                           ">
                             <button class="search-btn">Search</button>
                         </form>
                     </div>
