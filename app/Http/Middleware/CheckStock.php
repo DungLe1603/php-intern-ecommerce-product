@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use Cart;
 use Closure;
 use App\Model\Product;
 
@@ -9,7 +10,7 @@ class CheckStock
 {
     public function handle($request, Closure $next)
     {
-        foreach (\Cart::getContent() as $item) {
+        foreach (Cart::getContent() as $item) {
             $product = Product::find($item->id);
             if ($product->quantity < $item->quantity) {
                 return redirect()->back()->with('error', 'Not enough products!');
@@ -17,8 +18,8 @@ class CheckStock
             }
         }
 
-        $request->request->add(['items' => \Cart::getContent()]);
-        $request->request->add(['total' => \Cart::getTotal()]);
+        $request->request->add(['items' => Cart::getContent()]);
+        $request->request->add(['total_price' => Cart::getTotal()]);
 
         return $next($request);
     }

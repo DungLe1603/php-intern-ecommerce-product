@@ -39,8 +39,8 @@
                                     <h3 class="title">Billing address</h3>
                                 </div>
                                 <div class="form-group">
-                                    <input class="input" type="text" name="fullname" placeholder="Full Name" value="{{ old('fullname') }}">
-                                    @error('fullname')
+                                    <input class="input" type="text" name="customer_name" placeholder="Full Name" value="{{ old('customer_name') }}">
+                                    @error('customer_name')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>

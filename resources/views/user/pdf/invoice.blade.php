@@ -149,10 +149,10 @@
                 </td>
             </tr>
             
-            @foreach ($items as $item)
+            @foreach ($order->items() as $item)
                 <tr class="item">
                     <td>
-                        {{$item->name}}
+                        {{$item->product_name}}
                     </td>
                     <td>
                         {{$item->quantity}}
@@ -167,7 +167,7 @@
                 <td></td>
                 
                 <td>
-                   Total: ${{$total}}
+                   Total: ${{$order->total_price}}
                 </td>
             </tr>
         </table>
