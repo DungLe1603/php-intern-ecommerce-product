@@ -30,9 +30,11 @@ Route::group(['namespace' => 'User'], function () {
     Route::patch('update-cart', 'CartController@update');
 
     // Order
+    Route::get('orders', 'OrderController@index')->name('orders.index');
     Route::get('checkout', 'OrderController@create')->name('orders.create');
     Route::post('order', 'OrderController@store')->name('orders.store')->middleware('checkStock');
-    Route::get('invoice', 'OrderController@invoice');
+    Route::get('find-orders', 'OrderController@find')->name('orders.find');
+    Route::get('order/{order}', 'OrderController@download')->name('orders.download');
 });
 
 //Admin

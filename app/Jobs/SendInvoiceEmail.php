@@ -9,21 +9,23 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Model\Order;
 use App\Mail\Invoice;
+use PDF;
+use Mail;
 
 class SendInvoiceEmail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected $data;
+    protected $order;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($data)
+    public function __construct($order)
     {
-        $this->data = $data;
+        $this->order = $order;
     }
 
     /**
@@ -33,9 +35,9 @@ class SendInvoiceEmail implements ShouldQueue
      */
     public function handle()
     {
-        $pdf = \PDF::loadView('user.pdf.invoice', $this->data);
+        $pdf = PDF::loadView('user.pdf.invoice', [ 'order' => $this->order ]);
         $message = new Invoice();
         $message->attachData($pdf->output(), "invoice.pdf");
-        \Mail::to($this->data['order']->email)->send($message);
+        Mail::to($this->order->email)->send($message);
     }
 }
