@@ -5,7 +5,8 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\Product;
-use App\Cart;
+use Cart;
+use App\Http\Requests\CartRequest;
 
 class CartController extends Controller
 {
@@ -17,12 +18,14 @@ class CartController extends Controller
     public function add(Product $product)
     {
         if ($product->quantity > 0) {
-            \Cart::add(array(
+            Cart::add(array(
                 'id' => $product->id,
                 'name' => $product->product_name,
                 'price' => $product->price,
                 'quantity' => 1,
-                'attributes' => array(),
+                'attributes' => array(
+                    'images' => $product->images
+                ),
                 'associatedModel' => $product
             ));
         }
@@ -30,24 +33,21 @@ class CartController extends Controller
         return redirect()->back();
     }
 
-    public function update(Request $request)
+    public function update(CartRequest $request)
     {
-        $id = $request->input('id');
-        $quantity = $request->input('quantity');
-
-        \Cart::update($id, array(
+        Cart::update($request->id, array(
             'quantity' => array(
                 'relative' => false,
-                'value' => $quantity
-            ),
+                'value' => $request->quantity
+            )
           ));
 
-        return $quantity;
+        return $request->quantity;
     }
 
     public function remove(Product $product)
     {
-        \Cart::remove($product->id);
+        Cart::remove($product->id);
         
         return redirect()->back();
     }

@@ -12,7 +12,7 @@
             @foreach (Cart::getContent() as $item)
             <div class="product-widget">
                 <div class="product-img">
-                    <img src="/electro/img/product01.png" alt="">
+                    <img src="{{ Storage::disk('gcs')->url($item->attributes['images']) }}" alt="">
                 </div>
                 <div class="product-body">
                     <h3 class="product-name"><a href="{{url('products') . '/' . $item->id}}">{{ $item->name }}</a></h3>
