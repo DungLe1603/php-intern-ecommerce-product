@@ -10,6 +10,7 @@ use App\Imports\ProductsImport;
 use App\Model\Product;
 use App\Exports\ProductsExport;
 use Image;
+use Maatwebsite\Excel\Validators\ValidationException;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -39,15 +40,15 @@ class ProductController extends Controller
         $img->resize(600, 600)->save();
         Storage::disk('gcs')->putFile('', $request->file('image'));
 
-        $newProduct = new Product([
+        $data = [
             'product_name' => $request->product_name,
             'quantity' => $request->quantity,
             'description' => $request->description,
             'configuration' => $request->configuration,
             'price' => $request->price,
             'images' => $image
-        ]);
-        $newProduct->save();
+        ];
+        Product::create($data);
 
         return redirect()->route('admin.index')->with('success', 'Add Product Success');
     }
@@ -91,16 +92,15 @@ class ProductController extends Controller
     {
         try {
             Excel::import(new ProductsImport(), $request->file('file'));
+
             return redirect()->back()->with('success', 'Import Success');
-        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
-            $fail = $e->failures();
+        } catch (ValidationException $e) {
             return redirect()->back()->with('error', 'Format Excel Error');
         }
     }
 
     public function destroy($id)
     {
-        ;
         Product::destroy($id);
 
         return redirect()->back()->with('success', 'Delete Product Success');
