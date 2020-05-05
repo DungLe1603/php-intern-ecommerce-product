@@ -8,6 +8,11 @@ class Order extends Model
 {
     protected $fillable = ['total_price', 'customer_name', 'address', 'phone', 'email', 'order_notes'];
 
+    public static function getByPhone($phone)
+    {
+        return Order::where('phone', '=', $phone)->get();
+    }
+
     public function items()
     {
         return Order::join('order_products', 'orders.id', '=', 'order_products.order_id')

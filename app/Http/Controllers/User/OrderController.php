@@ -33,7 +33,7 @@ class OrderController extends Controller
     {
         $phone = $request->query('phone');
 
-        $orders = Order::where('phone', '=', $phone)->get();
+        $orders = Order::getByPhone($phone);
         
         return view('user.order.index', compact('orders'));
     }
