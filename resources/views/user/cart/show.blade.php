@@ -23,7 +23,7 @@
                     @foreach (Cart::getContent()->sort() as $item)
                         <tr>
                             <td>
-                                <a href="{{url('products') . '/' . $item->id}}">{{$item->name}}</a>
+                                <a href="{{ route('products.show', $item->id) }}">{{$item->name}}</a>
                             </td>
                             <td>
                                 <div class="input-number quantity-control">
@@ -36,7 +36,7 @@
                                 x ${{$item->price}}
                             </td>
                             <td>
-                                <a href="{{url('remove-from-cart') . '/' . $item->id}}">
+                                <a href="{{ route('cart.remove', $item->id) }}">
                                     <i class="fa fa-close"></i>
                                 </a>
                             </td>
@@ -49,7 +49,7 @@
                     </div>
                 </div>
                 
-                <a href="{{url('checkout')}}" class="primary-btn order-submit">Checkout</a>
+                <a href="{{ route('orders.create') }}" class="primary-btn order-submit">Checkout</a>
             </div>
             <!-- /Order Details -->
         </div>

@@ -10,12 +10,23 @@ use App\Cart;
 use App\Model\Product;
 use App\Model\Order;
 use App\Model\OrderProduct;
+use App\Mail\Invoice;
+use App\Jobs\SendInvoiceEmail;
 
 class OrderController extends Controller
 {
-    public function show()
-    {
-    }
+    private $messages = [
+        'download' => [
+            'title' => 'Success!',
+            'body' => 'Your invoice can be downloaded from this link:',
+            'link' => ''
+        ],
+        'email' => [
+            'title' => 'Success!',
+            'body' => 'You will receive your invoice in email soon.',
+            'link' => ''
+        ]
+    ];
 
     public function create()
     {
@@ -24,68 +35,59 @@ class OrderController extends Controller
 
     public function store(StoreOrder $request)
     {
-        if (!$this->validateQuantity()) {
-            return 'Not enough products';
-        }
-
-        $newOrder = new Order([
-            'total_price' => \Cart::getTotal(),
-            'customer_name' => $request->fullname,
-            'address' => $request->address,
-            'phone' => $request->phone,
-            'email' => $request->email,
-            'order_notes' => $request->order_notes
+        $order = new Order([
+            'total_price' =>    $request->total,
+            'customer_name' =>  $request->fullname,
+            'address' =>        $request->address,
+            'phone' =>          $request->phone,
+            'email' =>          $request->email,
+            'order_notes' =>    $request->order_notes
         ]);
-        $newOrder->save();
+        $order->save();
 
-        foreach (\Cart::getContent() as $item) {
+        foreach ($request->items as $item) {
             $product = Product::find($item->id);
             $product->quantity = $product->quantity - $item->quantity;
             $product->save();
 
             $orderProduct = new OrderProduct([
-                'order_id' => $newOrder->id,
+                'order_id' =>   $order->id,
                 'product_id' => $product->id,
-                'quantity' => $item->quantity,
-                'price' => $item->price
+                'quantity' =>   $item->quantity,
+                'price' =>      $item->price
             ]);
 
             $orderProduct->save();
         }
 
-        \Cart::clear();
-
-        $info = [
-            'title' => 'Sucess!',
-            'body' => '',
-            'link' => '',
+        $action = $request->invoice;
+        $data = [
+            'order' => $order,
+            'items' => $request->items,
+            'total' => $request->total
         ];
 
-        switch ($request->input('invoice')) {
-            case 'download':
-                $info['body'] = 'Your invoice can be downloaded from this link:';
-                break;
-
-            case 'email':
-                $info['body'] = 'You will receive your invoice in email soon.';
-                break;
-            default:
-                break;
+        $info = $this->messages[$action];
+        if ($action === 'download') {
+            session(['data' => $data]);
+            $info['link'] = url('invoice');
+        } elseif ($action === 'email') {
+            SendInvoiceEmail::dispatchAfterResponse($data);
         }
 
-        return view('user.order.show', compact('info'));
+        \Cart::clear();
+        
+        return view('user.order.show', compact('info'))->with('success', 'Thank you for your order!');
     }
 
-    // Validate: there is enough product in stock
-    private function validateQuantity()
+    public function invoice()
     {
-        foreach (\Cart::getContent() as $item) {
-            $product = Product::find($item->id);
-            if ($product->quantity < $item->quantity) {
-                return false;
-            }
+        $data = session('data');
+        if (isset($data)) {
+            $pdf = \PDF::loadView('user.pdf.invoice', $data);
+            return $pdf->download('invoice.pdf');
         }
-        
-        return true;
+
+        return redirect()->back();
     }
 }

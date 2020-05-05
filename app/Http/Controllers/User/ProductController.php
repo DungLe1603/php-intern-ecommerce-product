@@ -9,9 +9,14 @@ use App\Cart;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::paginate(6)->withPath('products');
+        $slug = $request->query('slug');
+        if (isset($slug)) {
+            $products = Product::where('product_name', 'LIKE', '%' . $slug . '%')->paginate(6)->withPath('products');
+        } else {
+            $products = Product::where('quantity', '>', 0)->paginate(6)->withPath('products');
+        }
 
         return view('user.product.index', compact('products'));
     }
@@ -19,5 +24,9 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         return view('user.product.show', compact('product'));
+    }
+
+    public function search($slug)
+    {
     }
 }

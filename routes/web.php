@@ -14,24 +14,25 @@ use Maatwebsite\Excel\Facades\Excel;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::group(['namespace' => 'User'], function () {
+    Route::get('/', function () {
+        return view('user.welcome');
+    })->name('home');
+
     //Product
-    Route::get('products', 'ProductController@index');
-    Route::get('products/{product}', 'ProductController@show');
+    Route::get('products', 'ProductController@index')->name('products.index');
+    Route::get('products/{product}', 'ProductController@show')->name('products.show');
 
     //Cart
     Route::get('cart', 'CartController@show');
-    Route::get('add-to-cart/{product}', 'CartController@add');
-    Route::get('remove-from-cart/{product}', 'CartController@remove');
+    Route::get('add-to-cart/{product}', 'CartController@add')->name('cart.add');
+    Route::get('remove-from-cart/{product}', 'CartController@remove')->name('cart.remove');
     Route::patch('update-cart', 'CartController@update');
 
     // Order
-    Route::get('checkout', 'OrderController@create');
-    Route::post('order', 'OrderController@store');
+    Route::get('checkout', 'OrderController@create')->name('orders.create');
+    Route::post('order', 'OrderController@store')->name('orders.store')->middleware('checkStock');
+    Route::get('invoice', 'OrderController@invoice');
 });
 
 //Admin
