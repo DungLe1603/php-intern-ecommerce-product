@@ -1,4 +1,5 @@
 @extends('admin.layouts.content')
+@section('title','Order')
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
@@ -14,9 +15,8 @@
                             {{$orders->onEachSide(1)->links()}}
                         </div>
                     </div>
-
-                    <table class="table table-active text-center">
-                        <thead class="btn-secondary">
+                    <table class="table table-group">
+                        <thead class="text-primary">
                         <tr>
                             <th>STT</th>
                             <th>Customer Name</th>

@@ -28,7 +28,7 @@ class LoginController extends Controller
         }
         session(['user' => $user]);
 
-        return redirect()->route('admin.dashboard')->with('success', 'Login Successfull');
+        return redirect()->route('admin.products.index')->with('success', 'Login Successfull');
     }
 
     public function logout(Request $request)

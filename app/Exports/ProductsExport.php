@@ -27,8 +27,8 @@ class ProductsExport implements FromCollection, WithHeadings, WithEvents
             'Quantity',
             'Description',
             'Config',
-            'Price',
             'Image',
+            'Price',
             "Created",
             "Updated"
         ];

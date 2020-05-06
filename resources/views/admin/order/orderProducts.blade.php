@@ -1,4 +1,5 @@
 @extends('admin.layouts.content')
+@section('title','Order Product')
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
@@ -10,11 +11,17 @@
                 <div class="card" style="width: 18rem;">
                     <div class="card-header bg bg-secondary"><h3>Order Product</h3></div>
                     <div class="card-body">
-                        <h5 class="card-title"><span class="font-weight-bold">Customer Name: {{$orderProduct->first()->order->customer_name}}</span></h5>
-                        <p class="card-text"><span class="font-weight-bold">Address: </span>{{$orderProduct->first()->order->address}}</p>
-                        <p class="card-text"><span class="font-weight-bold">Phone: </span>{{$orderProduct->first()->order->phone}}</p>
-                        <h6 class="card-text"><span class="font-weight-bold">Total: </span>${{number_format($orderProduct->first()->order->total_price)}}</h6>
-                        <a href="{{route('admin.showOrder')}}" class="btn btn-primary">Back</a>
+                        <h5 class="card-title"><span
+                                class="font-weight-bold">Customer Name: {{$orderProduct->first()->order->customer_name}}</span>
+                        </h5>
+                        <p class="card-text"><span
+                                class="font-weight-bold">Address: </span>{{$orderProduct->first()->order->address}}</p>
+                        <p class="card-text"><span
+                                class="font-weight-bold">Phone: </span>{{$orderProduct->first()->order->phone}}</p>
+                        <h6 class="card-text"><span
+                                class="font-weight-bold">Total: </span>${{number_format($orderProduct->first()->order->total_price)}}
+                        </h6>
+                        <a href="{{route('admin.index')}}" class="btn btn-primary">Back</a>
                     </div>
                 </div>
                 <ul class="nav">

@@ -16,23 +16,35 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('checkLoginAdmin');
-    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
 
-    public function index()
+    public function index(Product $products)
     {
         $products = Product::paginate(8);
 
         return view('admin.product.list_products', compact('products'));
     }
 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create()
     {
         return view('admin.product.createProduct');
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(CreateProductRequest $request)
     {
         $image = $request->file('image')->store('');
@@ -40,26 +52,45 @@ class ProductController extends Controller
         $img->resize(600, 600)->save();
         Storage::disk('gcs')->putFile('', $request->file('image'));
 
-        $data = [
-            'product_name' => $request->product_name,
-            'quantity' => $request->quantity,
-            'description' => $request->description,
-            'configuration' => $request->configuration,
-            'price' => $request->price,
-            'images' => $image
-        ];
+        $data = $request->all();
+        $data['images'] = $image;
         Product::create($data);
 
-        return redirect()->route('admin.index')->with('success', 'Add Product Success');
+        return redirect()->route('admin.products.index')->with('success', 'Add Product Success');
     }
 
-    public function editProduct(Product $product)
+    /**
+     * Display the specified resource.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Product $product)
     {
         return view('admin.product.editProduct', compact('product'));
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
     public function update(UpdateProductRequest $request, $id)
     {
+
         $params = $request->all();
         if ($request->file('image') == null) {
             $image = $params['old_image'];
@@ -80,7 +111,20 @@ class ProductController extends Controller
         ];
         Product::findOrFail($id)->update($dataUp);
 
-        return redirect()->route('admin.index')->with('success', 'Update Success');
+        return redirect()->route('admin.products.index')->with('success', 'Update Success');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        Product::destroy($id);
+
+        return redirect()->back()->with('success', 'Delete Product Success');
     }
 
     public function exportProduct()
@@ -91,18 +135,22 @@ class ProductController extends Controller
     public function importProduct(ImportProductRequest $request)
     {
         try {
-            Excel::import(new ProductsImport(), $request->file('file'));
-
+            $excel = Excel::toArray(new ProductsImport(), $request->file('file'))[0];
+            foreach ($excel as $value) {
+                $products = Product::where('product_name', $value['product_name'])->get();
+                if (!$products->isEmpty() && $value['quantity'] > 0 && $value['price'] > 0) {
+                    $data = [
+                        'quantity' => $products->first()->quantity + $value['quantity'],
+                        'price' => $value['price']
+                    ];
+                    Product::find($products->first()->id)->update($data);
+                } else {
+                    Excel::import(new ProductsImport(), $request->file('file'));
+                }
+            }
             return redirect()->back()->with('success', 'Import Success');
         } catch (ValidationException $e) {
             return redirect()->back()->with('error', 'Format Excel Error');
         }
-    }
-
-    public function destroy($id)
-    {
-        Product::destroy($id);
-
-        return redirect()->back()->with('success', 'Delete Product Success');
     }
 }

@@ -1,4 +1,5 @@
 @extends('admin.layouts.content')
+@section('title','List Products')
 
 @section('content')
     <script type="text/javascript" src="{{asset('lte\js\delete_product.js')}}"></script>
@@ -22,7 +23,6 @@
                                 <i style="color: red; font-size: 90%; font-family: sans-serif">*{{$messages}}</i>
                             @endforeach
                         @endif
-
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -40,17 +40,19 @@
             <div class="container-fluid">
                 <!-- Main row -->
                 <div>
-                    {{--show message success--}}
-                    @if(session()->has('success'))
-                        <div class="alert alert-success">
-                            {{ session()->get('success') }}
-                        </div>
-                    @endif
-                    @if(session()->has('error'))
-                        <div class="alert alert-danger">
-                            {{ session()->get('error') }}
-                        </div>
-                    @endif
+                    <div id="successMessage">
+                        {{--show message success--}}
+                        @if(session()->has('success'))
+                            <div class="alert alert-success">
+                                {{ session()->get('success') }}
+                            </div>
+                        @endif
+                        @if(session()->has('error'))
+                            <div class="alert alert-danger">
+                                {{ session()->get('error') }}
+                            </div>
+                        @endif
+                    </div>
                     <div class="navbar navbar-expand navbar-white navbar-light">
                         <!-- Left navbar links -->
                         <ul class="navbar-nav">
@@ -59,12 +61,9 @@
                                         class="fas fa-bars"></i></a>
                             </li>
                             <li class="nav-item d-none d-sm-inline-block">
-                                <a href="{{route('admin.create')}}"
+                                <a href="{{route('admin.products.create')}}"
                                    class="nav-link btn btn-success text-white font-weight-bold">Create</a>
                             </li>
-                            {{--                            <li class="nav-item d-none d-sm-inline-block ">--}}
-                            {{--                                <a href="#" class="nav-link">Contact</a>--}}
-                            {{--                            </li>--}}
                         </ul>
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item d-none d-sm-inline-block ">
@@ -74,8 +73,8 @@
                             </li>
                         </ul>
                     </div>
-                    <table class="table table-bordered text-center">
-                        <thead class="btn-secondary">
+                    <table class="table table-group">
+                        <thead class="text-primary">
                         <tr>
                             <th>STT</th>
                             <th>Product Name</th>
@@ -83,8 +82,6 @@
                             <th>Description</th>
                             <th>Configuration</th>
                             <th>Price</th>
-                            <th>Created At</th>
-                            <th>Updated At</th>
                             <th>Images</th>
                             <th colspan="2">Action</th>
                         </tr>
@@ -98,15 +95,13 @@
                                 <td>{!!$value->description!!}</td>
                                 <td>{!!$value->configuration!!}</td>
                                 <td>{{$value->price}}</td>
-                                <td>{{$value->created_at}}</td>
-                                <td>{{$value->updated_at}}</td>
                                 <td><img src="{{\Storage::disk('gcs')->url($value->images)}}" alt="Product Image"
                                          style="width: 50px;height: 50px"></td>
-                                <td><a href="{{route('admin.editProduct',$value->id)}}">
+                                <td><a href="{{route('admin.products.edit',$value->id)}}">
                                         <button class="btn btn-primary">Edit</button>
                                     </a></td>
                                 <td>
-                                    <form action="{{route('admin.destroy',$value->id)}}" method="post">
+                                    <form action="{{route('admin.products.destroy',$value->id)}}" method="post">
                                         @csrf
                                         @method('delete')
                                         <button type="submit" class="btn btn-danger"
@@ -118,7 +113,7 @@
                         @endforeach
                         </tbody>
                     </table>
-                    <div class="float-left">
+                    <div class="">
                         {{$products->onEachSide(1)->links()}}
                     </div>
                 </div>
@@ -127,7 +122,6 @@
         </section>
         <!-- /.content -->
     </div>
-    <!-- /.content-wrapper -->
     <script>
         CKEDITOR.replace('editor1');
     </script>

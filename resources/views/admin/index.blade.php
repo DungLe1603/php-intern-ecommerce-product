@@ -36,14 +36,12 @@
                         </ul>
                     </div>
                 @endif
-
                 {{--show message success--}}
                 @if(session()->has('success'))
                     <div class="alert alert-success">
                         {{ session()->get('success') }}
                     </div>
                 @endif
-
                 {{--show message fail--}}
                 @if(session()->has('error'))
                     <div class="alert alert-danger">

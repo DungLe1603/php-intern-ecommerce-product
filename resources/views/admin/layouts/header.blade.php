@@ -6,7 +6,8 @@
             <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{route('admin.logout')}}" class="btn btn-danger nav-link" style="font-weight: bold; color: black"><i class="fas fa-sign-out-alt"></i></a>
+            <a href="{{route('admin.logout')}}" class="btn btn-danger nav-link" style="font-weight: bold; color: black"><i
+                    class="fas fa-sign-out-alt"></i></a>
         </li>
     </ul>
 </nav>
@@ -40,7 +41,7 @@
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
                 <li class="nav-item has-treeview menu-open">
-                    <a href="{{route('admin.index')}}" class="nav-link active">
+                    <a href="{{route('admin.products.index')}}" class="nav-link active">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Product
@@ -49,7 +50,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{route('admin.showOrder')}}" class="nav-link">
+                    <a href="{{route('admin.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
                             Order

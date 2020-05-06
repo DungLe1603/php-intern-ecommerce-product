@@ -1,4 +1,5 @@
 @extends('admin.layouts.content')
+@section('title','Edit Product')
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
@@ -25,7 +26,7 @@
             <div class="container-fluid">
                 <!-- Main row -->
                 <h2>Update Product</h2>
-                <form action="{{route('admin.update',$product->id)}}" method="post" enctype="multipart/form-data"
+                <form action="{{route('admin.products.update',$product->id)}}" method="post" enctype="multipart/form-data"
                       class="form">
                     @csrf
                     @method('put')

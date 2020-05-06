@@ -9,12 +9,8 @@ use App\Model\Product;
 
 class OrderController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('checkLoginAdmin');
-    }
 
-    public function showOrder()
+    public function index()
     {
         $orders = Order::paginate(8);
 

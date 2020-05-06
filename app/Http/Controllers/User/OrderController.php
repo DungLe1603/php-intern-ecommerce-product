@@ -34,10 +34,10 @@ class OrderController extends Controller
         $phone = $request->query('phone');
 
         $orders = Order::getByPhone($phone);
-        
+
         return view('user.order.index', compact('orders'));
     }
-    
+
     public function create()
     {
         return view('user.order.create');
@@ -46,7 +46,7 @@ class OrderController extends Controller
     public function store(StoreOrder $request)
     {
         $parameters = $request->request->all();
-        
+
         $order = Order::create($parameters);
         OrderProduct::createMultiple($order->id, $parameters['items']);
 
@@ -56,10 +56,10 @@ class OrderController extends Controller
             SendInvoiceEmail::dispatchAfterResponse($order);
         }
 
-        $info['link'] = route('invoice.download', $order);
+        $info['link'] = route('orders.download', $order);
 
         Cart::clear();
-        
+
         return view('user.order.show', compact('info'));
     }
 

@@ -1,4 +1,5 @@
 @extends('admin.layouts.content')
+@section('title','Create Product')
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
@@ -26,7 +27,7 @@
             <div class="container-fluid">
                 <!-- Main row -->
                 <h2>Create Product</h2>
-                <form action="{{route('admin.store')}}" method="post" enctype="multipart/form-data"
+                <form action="{{route('admin.products.store')}}" method="post" enctype="multipart/form-data"
                       class="form">
                     @csrf
                     <table class="table-condensed">
@@ -119,7 +120,7 @@
                         </tr>
                     </table>
                     <button class="btn btn-primary">Add Product</button>
-                    <a href="{{route('admin.index')}}" class="btn btn-danger">Back</a>
+                    <a href="{{route('admin.products.index')}}" class="btn btn-danger">Back</a>
                 </form>
             </div>
             <!-- /.row (main row) -->

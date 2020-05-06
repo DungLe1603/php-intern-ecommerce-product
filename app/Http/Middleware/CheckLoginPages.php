@@ -16,7 +16,7 @@ class CheckLoginPages
     public function handle($request, Closure $closure)
     {
         if ($request->session()->has('user')) {
-            return redirect()->route('admin.dashboard');
+            return redirect()->route('admin.products.index');
         }
 
         return $closure($request);
