@@ -56,7 +56,7 @@ class OrderController extends Controller
             SendInvoiceEmail::dispatchAfterResponse($order);
         }
 
-        $info['link'] = route('invoice.download', $order);
+        $info['link'] = route('orders.download', $order);
 
         Cart::clear();
         
