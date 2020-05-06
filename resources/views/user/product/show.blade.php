@@ -58,8 +58,12 @@
                                 </div>    
                             @else
                                 <div class="add-to-cart">
-                                    <label><i class="fa fa-shopping-cart"></i> Already in the cart</label>
-                                </div>   
+									<label class="title"><i class="fa fa-shopping-cart"></i> Already in the cart</label><br><br>
+									<div class="cart-btns">
+										<a class="btn btn-info" href="{{route('cart.show')}}">View Cart</a>
+										<a class="btn btn-success" href="{{route('orders.create')}}">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
+									</div>
+								</div> 
                             @endif
 						</div>
 					</div>

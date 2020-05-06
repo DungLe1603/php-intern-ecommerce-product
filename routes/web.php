@@ -15,21 +15,18 @@ use Maatwebsite\Excel\Facades\Excel;
 */
 
 Route::group(['namespace' => 'User'], function () {
-    Route::get('/', function () {
-        return view('user.welcome');
-    })->name('home');
-
-    //Product
+    //Products
+    Route::get('/', 'ProductController@welcome')->name('home');
     Route::get('products', 'ProductController@index')->name('products.index');
     Route::get('products/{product}', 'ProductController@show')->name('products.show');
 
     //Cart
-    Route::get('cart', 'CartController@show');
+    Route::get('cart', 'CartController@show')->name('cart.show');
     Route::get('add-to-cart/{product}', 'CartController@add')->name('cart.add');
     Route::get('remove-from-cart/{product}', 'CartController@remove')->name('cart.remove');
     Route::patch('update-cart', 'CartController@update');
 
-    // Order
+    // Orders
     Route::get('orders', 'OrderController@index')->name('orders.index');
     Route::get('checkout', 'OrderController@create')->name('orders.create');
     Route::post('order', 'OrderController@store')->name('orders.store')->middleware('checkStock');
