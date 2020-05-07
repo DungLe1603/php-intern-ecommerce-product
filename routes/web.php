@@ -43,7 +43,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
     });
     //Product in Admin Pages
     Route::resource('products', 'ProductController')->middleware('checkLoginAdmin');
-    Route::group(['prefix' => 'products/', 'as' => 'products.', 'middleware' => 'checkLoginAdmin'], function () {
+
+    Route::group(['as' => 'products.', 'middleware' => 'checkLoginAdmin'], function () {
         Route::get('/export', 'ProductController@exportProduct')->name('exportProduct');
         Route::post('/import', 'ProductController@importProduct')->name('importProduct');
     });
