@@ -1,7 +1,6 @@
 @extends('user.layout')
 
 @section('content')
-    @include('user.layouts.flash')
 
     <!-- BREADCRUMB -->
 		<div id="breadcrumb" class="section">

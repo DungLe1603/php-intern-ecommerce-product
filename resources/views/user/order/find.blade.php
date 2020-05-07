@@ -1,25 +1,21 @@
 @extends('user.layout')
 
 @section('content')
-    <div class="section" style="min-height:400px">
+    <div class="section" style="min-height:400px;padding-top:100px">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-4"></div>
-                <div class="col-lg-4 text-center">
-                    <form method="GET" action="{{ route('orders.index') }}">
-                        <div class="section-title">
-                            <h3 class="title">See your orders</h3>
+            <!-- row -->
+				<div class="row">
+					<div class="col-md-12">
+                        <div class="newsletter">
+                            <p>See your <strong>Orders</strong></p>
+                            <form method="GET" action="{{ route('orders.index') }}">
+                                <input name="phone" class="input" type="tel" placeholder="Enter Your phone number">
+                                <button type="submit" class="newsletter-btn"><i class="fa fa-envelope"></i> List All</button>
+                            </form>
                         </div>
-                        <div class="form-group">
-                            <input class="input" type="tel" name="phone" id="phone" placeholder="Phone Number">
-                        </div>
-                        <div class="form-group">
-                            <input class="primary-btn order-submit" type="submit" value="List All">
-                        </div>
-                    </form>
-                </div>
-                <div class="col-lg-4"></div>
-            </div>
+					</div>
+				</div>
+				<!-- /row -->
         </div>
     </div>
 @endsection

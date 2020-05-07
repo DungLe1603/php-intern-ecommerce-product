@@ -12,6 +12,10 @@ class CartController extends Controller
 {
     public function show()
     {
+        if (Cart::isEmpty()) {
+            return redirect()->route('products.index');
+        }
+
         return view('user.cart.show');
     }
 

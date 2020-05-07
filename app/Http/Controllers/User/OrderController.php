@@ -31,15 +31,20 @@ class OrderController extends Controller
 
     public function index(Request $request)
     {
-        $phone = $request->query('phone');
+        $orders = Order::getByPhone($request->query('phone'));
 
-        $orders = Order::getByPhone($phone);
+        if (count($orders) < 1) {
+            return redirect()->back()->with('error', 'No orders related to this phone number!');
+        }
 
         return view('user.order.index', compact('orders'));
     }
 
     public function create()
     {
+        if (Cart::isEmpty()) {
+            return redirect()->route('products.index');
+        }
         return view('user.order.create');
     }
 
