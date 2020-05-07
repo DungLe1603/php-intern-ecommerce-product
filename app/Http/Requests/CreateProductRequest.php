@@ -24,24 +24,12 @@ class CreateProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'product_name' => 'required',
-            'quantity' => 'required',
+            'product_name' => 'required|unique:products',
+            'quantity' => 'required|numeric|min:0|max:200',
             'description' => 'required',
             'configuration' => 'required',
-            'price' => 'required',
-            'image' => 'required'
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'product_name.required' => 'Product Name Not Null',
-            'quantity.required' => 'Quantity Not Null',
-            'description.required' => 'Description Not Null',
-            'configuration.required' => 'Configuration Not Null',
-            'price.required' => 'Price Not Null',
-            'image.required' => "You don't have file",
+            'price' => 'required|numeric|min:1',
+            'image' => 'required|image:jpeg,jpg,png'
         ];
     }
 }

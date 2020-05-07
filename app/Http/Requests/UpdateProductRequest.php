@@ -24,22 +24,13 @@ class UpdateProductRequest extends FormRequest
     public function rules()
     {
         return [
+//            'product_name' => ['required', Rule::unique('products')->ignore('id')],
             'product_name' => 'required',
-            'quantity' => 'required',
+            'quantity' => 'required|numeric|min:0|max:200',
             'description' => 'required',
             'configuration' => 'required',
-            'price' => 'required'
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'product_name.required' => 'Product Name Not Null',
-            'quantity.required' => 'Quantity Not Null',
-            'description.required' => 'Description Not Null',
-            'configuration.required' => 'Configuration Not Null',
-            'price.required' => 'Price Not Null'
+            'price' => 'required|numeric|min:1',
+            'image' => 'image:jpg,jpeg,png'
         ];
     }
 }

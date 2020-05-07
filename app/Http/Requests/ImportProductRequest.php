@@ -27,11 +27,4 @@ class ImportProductRequest extends FormRequest
             'file' => 'required'
         ];
     }
-
-    public function messages()
-    {
-        return [
-            'file.required' => "You don't have file",
-        ];
-    }
 }

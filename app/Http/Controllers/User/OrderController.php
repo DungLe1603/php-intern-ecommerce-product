@@ -36,10 +36,10 @@ class OrderController extends Controller
         if (count($orders) < 1) {
             return redirect()->back()->with('error', 'No orders related to this phone number!');
         }
-        
+
         return view('user.order.index', compact('orders'));
     }
-    
+
     public function create()
     {
         if (Cart::isEmpty()) {
@@ -51,7 +51,7 @@ class OrderController extends Controller
     public function store(StoreOrder $request)
     {
         $parameters = $request->request->all();
-        
+
         $order = Order::create($parameters);
         OrderProduct::createMultiple($order->id, $parameters['items']);
 
@@ -64,7 +64,7 @@ class OrderController extends Controller
         $info['link'] = route('orders.download', $order);
 
         Cart::clear();
-        
+
         return view('user.order.show', compact('info'));
     }
 
