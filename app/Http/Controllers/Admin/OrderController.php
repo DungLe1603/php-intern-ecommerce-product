@@ -19,9 +19,14 @@ class OrderController extends Controller
 
     public function orderProduct($id)
     {
-        $orderProduct = OrderProduct::with('order')->findOrFail($id)->get();
+        $order = Order::with('orderproducts')->where('id', $id)->get();
         $products = Product::all();
 
-        return view('admin.order.orderProducts', compact('orderProduct', 'products'));
+        $orderProduct = array();
+        foreach ($order as $value) {
+            $orderProduct = [$value->orderproducts];
+        }
+
+        return view('admin.order.orderProducts', compact('orderProduct', 'products', 'order'));
     }
 }
