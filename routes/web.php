@@ -45,7 +45,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
     Route::resource('products', 'ProductController')->middleware('checkLoginAdmin');
 
     Route::group(['as' => 'products.', 'middleware' => 'checkLoginAdmin'], function () {
-        Route::get('/aaa', 'ProductController@exportProduct')->name('exportProduct');
+        Route::get('/export', 'ProductController@exportProduct')->name('exportProduct');
         Route::post('/import', 'ProductController@importProduct')->name('importProduct');
     });
     //Order and Order Product in Admin Pages
