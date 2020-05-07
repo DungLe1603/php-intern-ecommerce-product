@@ -40,7 +40,7 @@
                                 <td>{{$value->total_price}}</td>
                                 <td>{{$value->order_notes}}</td>
                                 <td>{{$value->created_at}}</td>
-                                <td><a href="{{route('admin.orderProduct',$value->id)}}">
+                                <td><a href="{{route('admin.order.orderProduct',$value->id)}}">
                                         <button class="btn btn-primary">Info</button>
                                     </a></td>
                             </tr>

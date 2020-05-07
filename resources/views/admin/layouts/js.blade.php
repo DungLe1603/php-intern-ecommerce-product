@@ -3,5 +3,5 @@
 <script type="text/javascript">
     setTimeout(function() {
         $('#successMessage').fadeOut('fast');
-    }, 5000); // <-- time in milliseconds
+    }, 3000); // <-- time in milliseconds
 </script>

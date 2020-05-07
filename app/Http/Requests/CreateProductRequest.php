@@ -25,10 +25,10 @@ class CreateProductRequest extends FormRequest
     {
         return [
             'product_name' => 'required|unique:products',
-            'quantity' => 'required|numeric|min:0|max:100',
+            'quantity' => 'required|numeric|min:0|max:200',
             'description' => 'required',
             'configuration' => 'required',
-            'price' => 'required|numeric|min:1|max:300',
+            'price' => 'required|numeric|min:1',
             'image' => 'required|image:jpeg,jpg,png'
         ];
     }

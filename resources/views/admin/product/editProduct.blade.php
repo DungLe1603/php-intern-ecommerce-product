@@ -26,7 +26,8 @@
             <div class="container-fluid">
                 <!-- Main row -->
                 <h2>Update Product</h2>
-                <form action="{{route('admin.products.update',$product->id)}}" method="post" enctype="multipart/form-data"
+                <form action="{{route('admin.products.update',$product->id)}}" method="post"
+                      enctype="multipart/form-data"
                       class="form">
                     @csrf
                     @method('put')
@@ -127,10 +128,10 @@
                             </td>
                         </tr>
                         <input class="" type="hidden" name="old_image" value="{{$product->images}}"
-                               placeholder="Enter Product Name" style="width: 98%; margin-left: 2%">
+                               placeholder="Enter Product Name" style="width: 98%; margin-left: 2%">hasnh
                     </table>
                     <button class="btn btn-primary">Update</button>
-                    <a href="{{route('admin.index')}}" class="btn btn-danger">Back</a>
+                    <a href="{{route('admin.products.index')}}" class="btn btn-danger">Back</a>
                 </form>
             </div>
             <!-- /.row (main row) -->

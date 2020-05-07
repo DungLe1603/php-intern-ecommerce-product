@@ -15,7 +15,7 @@ class LoginController extends Controller
         return view('admin.index');
     }
 
-    public function handleLogin(Request $request)
+    public function login(Request $request)
     {
         $user = User::where('name', $request->username)->first();
         //Check admin exits
@@ -34,6 +34,7 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         $request->session()->forget('user');
+
         return redirect()->route('admin.showLogin')->with('logout', 'Logout Success !');
     }
 }

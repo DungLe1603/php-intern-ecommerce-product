@@ -22,7 +22,7 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index(Product $products)
+    public function index()
     {
         $products = Product::paginate(8);
 
@@ -90,7 +90,6 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, $id)
     {
-
         $params = $request->all();
         if ($request->file('image') == null) {
             $image = $params['old_image'];

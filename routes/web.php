@@ -39,14 +39,20 @@ Route::group(['namespace' => 'User'], function () {
 
 //Admin
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], function () {
-    Route::get('/', 'LoginController@showLogin')->name('showLogin')->middleware('checkLoginPages');
-    Route::post('/handle', 'LoginController@handleLogin')->name('handleLogin');
-    Route::get('/logout', 'LoginController@logout')->name('logout');
+    Route::group(['prefix' => '/'], function () {
+        Route::get('/', 'LoginController@showLogin')->name('showLogin')->middleware('checkLoginPages');
+        Route::post('/login', 'LoginController@login')->name('login');
+        Route::get('/logout', 'LoginController@logout')->name('logout');
+    });
     //Product in Admin Pages
     Route::resource('products', 'ProductController')->middleware('checkLoginAdmin');
-    Route::get('/exportProduct', 'ProductController@exportProduct')->name('exportProduct');
-    Route::post('/importProduct', 'ProductController@importProduct')->name('importProduct');
+    Route::group(['prefix' => 'products/', 'as' => 'products.', 'middleware' => 'checkLoginAdmin'], function () {
+        Route::get('/export', 'ProductController@exportProduct')->name('exportProduct');
+        Route::post('/import', 'ProductController@importProduct')->name('importProduct');
+    });
     //Order and Order Product in Admin Pages
-    Route::get('/order', 'OrderController@index')->name('index')->middleware('checkLoginAdmin');
-    Route::get('/order/{id}', 'OrderController@orderProduct')->name('orderProduct')->middleware('checkLoginAdmin');
+    Route::group(['prefix' => '/', 'as' => 'order.', 'middleware' => 'checkLoginAdmin'], function () {
+        Route::get('/order', 'OrderController@index')->name('index');
+        Route::get('/orderProduct/{id}', 'OrderController@orderProduct')->name('orderProduct');
+    });
 });

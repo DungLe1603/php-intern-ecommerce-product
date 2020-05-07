@@ -21,11 +21,7 @@ class OrderController extends Controller
     {
         $orderProduct = OrderProduct::with('order')->findOrFail($id)->get();
         $products = Product::all();
-        $data = [
-            'orderProduct' => $orderProduct,
-            'products' => $products
-        ];
 
-        return view('admin.order.orderProducts', $data);
+        return view('admin.order.orderProducts', compact('orderProduct','products'));
     }
 }

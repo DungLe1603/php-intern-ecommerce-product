@@ -49,7 +49,7 @@
                     </div>
                 @endif
 
-                <form action="{{route('admin.handleLogin')}}" method="post">
+                <form action="{{route('admin.login')}}" method="post">
                     @csrf
                     <div class="input-group mb-3">
                         <input name="username" type="text" class="form-control" placeholder="User Name" required>

@@ -21,7 +21,7 @@
                         <h6 class="card-text"><span
                                 class="font-weight-bold">Total: </span>${{number_format($orderProduct->first()->order->total_price)}}
                         </h6>
-                        <a href="{{route('admin.index')}}" class="btn btn-primary">Back</a>
+                        <a href="{{route('admin.order.index')}}" class="btn btn-primary">Back</a>
                     </div>
                 </div>
                 <ul class="nav">

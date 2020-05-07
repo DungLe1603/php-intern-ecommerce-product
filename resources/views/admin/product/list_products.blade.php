@@ -10,7 +10,8 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <form action="{{route('admin.importProduct')}}" method="post" enctype="multipart/form-data">
+                        <form action="{{route('admin.products.importProduct')}}" method="post"
+                              enctype="multipart/form-data">
                             @csrf
                             <input type="file"
                                    accept=".xlsx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
@@ -67,7 +68,7 @@
                         </ul>
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item d-none d-sm-inline-block ">
-                                <a href="{{route('admin.exportProduct')}}">
+                                <a href="{{route('admin.products.exportProduct')}}">
                                     <i class="fas fa-file-excel" style="font-size:20px"> List Product</i>
                                 </a>
                             </li>
