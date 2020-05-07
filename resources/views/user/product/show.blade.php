@@ -42,7 +42,13 @@
 							<h2 class="product-name">{{ $product->product_name }}</h2>
 							<div>
 								<h3 class="product-price">${{ $product->price }} </h3>
-								<span class="product-available">{{ $product->quantity }} in Stock</span>
+								@if ($product->quantity > 0 && $product->quantity < 10)
+									<span class="product-available">Only {{ $product->quantity }} in Stock</span>
+								@endif
+								@if ($product->quantity < 1)
+									<span class="product-available">Out of Stock</span>
+								@endif
+								
 							</div>
 							<p>{!! $product->description !!}</p>
 
@@ -50,21 +56,23 @@
 								<label>
 								</label>
 							</div>
-                            @if (!Cart::get($product->id))
-                                <div class="add-to-cart">
-                                    <a href="{{ route('cart.add', $product->id) }}">
-                                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-                                    </a>
-                                </div>    
-                            @else
-                                <div class="add-to-cart">
-									<label class="title"><i class="fa fa-shopping-cart"></i> Already in the cart</label><br><br>
-									<div class="cart-btns">
-										<a class="btn btn-info" href="{{route('cart.show')}}">View Cart</a>
-										<a class="btn btn-success" href="{{route('orders.create')}}">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
-									</div>
-								</div> 
-                            @endif
+							@if ($product->quantity > 0)
+								@if (!Cart::get($product->id))
+								<div class="add-to-cart">
+									<a href="{{ route('cart.add', $product->id) }}">
+										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+									</a>
+								</div>    
+								@else
+									<div class="add-to-cart">
+										<label class="title"><i class="fa fa-shopping-cart"></i> Already in the cart</label><br><br>
+										<div class="cart-btns">
+											<a class="btn btn-info" href="{{route('cart.show')}}">View Cart</a>
+											<a class="btn btn-success" href="{{route('orders.create')}}">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
+										</div>
+									</div> 
+								@endif
+							@endif
 						</div>
 					</div>
 					<!-- /Product details -->

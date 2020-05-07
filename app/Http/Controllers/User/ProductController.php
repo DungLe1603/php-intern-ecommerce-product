@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Model\OrderProduct;
 use Illuminate\Http\Request;
 use App\Model\Product;
 
@@ -10,7 +11,7 @@ class ProductController extends Controller
 {
     public function welcome()
     {
-        $products = Product::orderBy('id', 'desc')->take(6)->get();
+        $products = Product::latest();
 
         return view('user.welcome', compact('products'));
     }
