@@ -7,6 +7,7 @@
 
 		<!-- Google font -->
 		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+		<link rel="icon" href="{{asset('lte/dist/img/favicon-16x16.png')}}" type="image/gif" sizes="16x16">
 
 		<!-- Bootstrap -->
 		<link type="text/css" rel="stylesheet" href="/electro/css/bootstrap.min.css"/>
