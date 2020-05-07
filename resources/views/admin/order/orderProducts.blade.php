@@ -12,14 +12,14 @@
                     <div class="card-header bg bg-secondary"><h3>Order Product</h3></div>
                     <div class="card-body">
                         <h5 class="card-title"><span
-                                class="font-weight-bold">Customer Name: {{$order->first()->customer_name}}</span>
+                                class="font-weight-bold">Customer Name: {{$orderProduct->first()->order->customer_name}}</span>
                         </h5>
                         <p class="card-text"><span
-                                class="font-weight-bold">Address: </span>{{$order['0']['address']}}</p>
+                                class="font-weight-bold">Address: </span>{{$orderProduct->first()->order->address}}</p>
                         <p class="card-text"><span
-                                class="font-weight-bold">Phone: </span>{{$order['0']['phone']}}</p>
+                                class="font-weight-bold">Phone: </span>{{$orderProduct->first()->order->phone}}</p>
                         <h6 class="card-text"><span
-                                class="font-weight-bold">Total: </span>${{number_format($order['0']['total_price'])}}
+                                class="font-weight-bold">Total: </span>${{number_format($orderProduct->first()->order->total_price)}}
                         </h6>
                         <a href="{{route('admin.order.index')}}" class="btn btn-primary">Back</a>
                     </div>
@@ -39,7 +39,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($orderProduct['0'] as $key => $value)
+                        @foreach($orderProduct as $key => $value)
                             <tr>
                                 <td>{{$key +1}}</td>
                                 @foreach($products as $item)
