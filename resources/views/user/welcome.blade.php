@@ -59,6 +59,7 @@
 									@foreach ($products as $product)
 										<!-- product -->
 									<div class="product">
+										<a href="{{ route('products.show', $product->id) }}">
 										<div class="product-img">
 											<img src="{{ Storage::disk('gcs')->url($product->images) }}" alt="">
 											<div class="product-label">
@@ -79,6 +80,7 @@
 												<button class="quick-view"><a href="{{ route('products.show', $product->id) }}"><i class="fa fa-eye"></i><span class="tooltipp">view</span></a></button>
 											</div>
 										</div>
+									</a>
 										@if ( Cart::get($product->id) == null)
 											<div class="add-to-cart">
 												<a href="{{ route('cart.add', $product->id) }}">

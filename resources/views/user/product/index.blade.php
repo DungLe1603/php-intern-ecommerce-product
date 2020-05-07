@@ -56,9 +56,11 @@
 							<div class="product">
 								<a href="{{ route('products.show', $product->id) }}">
 								<div class="product-img">
-									<img src="{{ Storage::disk('gcs')->url($product->images) }}" alt="">
+									<img style="{{ $product->quantity < 1 ? 'opacity: 0.2' : '' }}" src="{{ Storage::disk('gcs')->url($product->images) }}" alt="">
 									<div class="product-label">
-										<span class="new">NEW</span>
+										@if ($product->quantity < 1)
+											<span class="new">Sold out</span>
+										@endif
 									</div>
 								</div>
 								<div class="product-body">
