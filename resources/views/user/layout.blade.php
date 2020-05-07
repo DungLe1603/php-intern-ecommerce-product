@@ -8,6 +8,8 @@
 
 		@include('user.layouts.nav')
 
+		@include('user.layouts.flash')
+
 		@yield('content')
 
 		@include('user.layouts.footer')

@@ -2,6 +2,7 @@
 <header>
     <!-- MAIN HEADER -->
     <div id="header">
+
         <!-- container -->
         <div class="container">
             <!-- row -->
@@ -34,6 +35,15 @@
                     <div class="header-ctn">
                         
                         @include('user.layouts.cart')
+
+                        @if (!Cart::isEmpty())
+                            <div>
+                                <a href="{{route('orders.create')}}">
+                                    <i class="fa fa-arrow-circle-right"></i>
+                                    <span>Checkout</span>
+                                </a>
+                            </div>
+                        @endif
 
                         <!-- Menu Toogle -->
                         <div class="menu-toggle">

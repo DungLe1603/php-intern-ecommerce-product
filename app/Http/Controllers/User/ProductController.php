@@ -8,6 +8,13 @@ use App\Model\Product;
 
 class ProductController extends Controller
 {
+    public function welcome()
+    {
+        $products = Product::orderBy('id', 'desc')->take(6)->get();
+
+        return view('user.welcome', compact('products'));
+    }
+
     public function index(Request $request)
     {
         $products = Product::search($request->slug)->paginate(6)->withPath('products');
