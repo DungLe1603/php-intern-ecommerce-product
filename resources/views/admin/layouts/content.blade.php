@@ -6,6 +6,7 @@
     <title>@yield('title')</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="{{asset('lte/dist/img/favicon-16x16.png')}}" type="image/gif" sizes="16x16">
     @include('admin.layouts.css')
     @include('admin.layouts.js')
 </head>

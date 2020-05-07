@@ -9,7 +9,7 @@
 @if ($message = Session::get('error'))
 <div class="alert alert-danger alert-block">
 	<button type="button" class="close" data-dismiss="alert">×</button>	
-        <strong>{{ $message }}</strong>
+		<strong>{{ $message }}</strong>
 </div>
 @endif
 
@@ -32,7 +32,9 @@
 
 @if ($errors->any())
 <div class="alert alert-danger">
+	<img class="delete" src="{{asset('lte/dist/img/ng.png')}}">
 	<button type="button" class="close" data-dismiss="alert">×</button>	
-	Please check the form below for errors
+	DON'T HACK !
+	<img class="delete" src="{{asset('lte/dist/img/ng.png')}}">
 </div>
 @endif
