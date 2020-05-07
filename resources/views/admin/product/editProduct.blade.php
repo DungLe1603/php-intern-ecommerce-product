@@ -50,10 +50,10 @@
                         </tr>
                         <tr class="form-group">
                             <th class="col-md-5 float-left"><label for="">Quantity: </label></th>
-                            <td class="col-md-7 float-left"><input class="" type="text" name="quantity"
+                            <td class="col-md-7 float-left"><input class="" type="number" name="quantity"
                                                                    value="{{$product->quantity}}"
                                                                    placeholder="Enter Product Name"
-                                                                   style="width: 98%; margin-left: 2%"></td>
+                                                                   style="width: 98%; margin-left: 2%" min="0"></td>
                             <td>
                                 @if($errors->any())
                                     @foreach($errors->get('quantity') as $messages)
@@ -92,10 +92,10 @@
                         </tr>
                         <tr class="form-group">
                             <th class="col-md-5 float-left"><label for="">Price: </label></th>
-                            <td class="col-md-7 float-left"><input class="" type="text" name="price"
+                            <td class="col-md-7 float-left"><input class="" type="number" name="price"
                                                                    value="{{$product->price}}"
                                                                    placeholder="Enter Product Name"
-                                                                   style="width: 98%; margin-left: 2%"></td>
+                                                                   style="width: 98%; margin-left: 2%" min="0"></td>
                             <td>
                                 @if($errors->any())
                                     @foreach($errors->get('price') as $messages)

@@ -28,7 +28,7 @@ class CreateProductRequest extends FormRequest
             'quantity' => 'required|numeric|min:0|max:200',
             'description' => 'required',
             'configuration' => 'required',
-            'price' => 'required|numeric|min:1',
+            'price' => 'required|numeric|min:1|max:10000',
             'image' => 'required|image:jpeg,jpg,png'
         ];
     }

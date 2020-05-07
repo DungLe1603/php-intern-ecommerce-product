@@ -52,7 +52,7 @@
                             <td class="col-md-7 float-left"><input class="" type="number" name="quantity"
                                                                    value=""
                                                                    placeholder="Enter Quantity"
-                                                                   style="width: 98%; margin-left: 2%"></td>
+                                                                   style="width: 98%; margin-left: 2%" min="0"></td>
                             <td>
                                 @if($errors->any())
                                     @foreach($errors->get('quantity') as $messages)
@@ -94,7 +94,7 @@
                             <td class="col-md-7 float-left"><input class="" type="number" name="price"
                                                                    value=""
                                                                    placeholder="Enter Price"
-                                                                   style="width: 98%; margin-left: 2%"></td>
+                                                                   style="width: 98%; margin-left: 2%" min="0"></td>
                             <td>
                                 @if($errors->any())
                                     @foreach($errors->get('price') as $messages)
